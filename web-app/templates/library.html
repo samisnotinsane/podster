@@ -3,3 +3,10 @@
 {% block head %}
 {{ super() }}
 {% endblock %}
+{% block content %}
+    <ul>
+        {% for podcast in podcasts %}
+        <li>{{ podcast.title }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

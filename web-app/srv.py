@@ -23,4 +23,5 @@ def get_episodes(podcast_name=None):
 
 @app.route('/library')
 def library():
-    return render_template('library.html')
+    podcasts = data.get_podcast_list()
+    return render_template('library.html', podcasts=podcasts)
