@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify
-from data import get_podcasts
+import data
 
 app = Flask(__name__)
 
@@ -10,6 +10,12 @@ def index():
 
 
 @app.route('/api/podcasts')
-def get_podcast():
-    podcasts = get_podcasts()
+def get_podcasts():
+    podcasts = data.get_podcast_list()
     return jsonify({'podcasts': podcasts})
+
+
+@app.route('/api/episodes/<podcast_name>')
+def get_episodes(podcast_name=None):
+    episodes = data.get_episode_list(podcast_name)
+    return jsonify(episodes)
