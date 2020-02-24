@@ -19,3 +19,8 @@ def get_podcasts():
 def get_episodes(podcast_name=None):
     episodes = data.get_episode_list(podcast_name)
     return jsonify(episodes)
+
+
+@app.route('/library')
+def library():
+    return render_template('library.html')
