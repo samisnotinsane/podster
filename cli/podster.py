@@ -1,5 +1,6 @@
 import click
 import sys
+import os
 
 
 class Scope(object):
@@ -23,16 +24,20 @@ def cli(scope):
 @click.option('--purge', is_flag=True, help='Delete stored RSS URLs.')
 @click.option('--view', is_flag=True, help='View stored RSS URLs.')
 @click.argument('URL', required=False)
+@click.argument('out', type=click.File('a+'), default='URL_CACHE', required=False)
 @pass_scope
-def source(scope, add, purge, view, url):
+def source(scope, add, purge, view, url, out):
     if add:
         if url is not None:
             click.echo('Adding RSS URL: {0}'.format(url))
+            click.echo(url, file=out)
         else:
             click.echo('Error: Missing argument "URL".')
             sys.exit(-1)
     if purge:
-        click.echo('Purging RSS URL cache')
+        os.remove('URL_CACHE')
+        click.echo('Purged RSS URL cache')
+
     if view:
         click.echo('Viewing RSS URL cache')
 
