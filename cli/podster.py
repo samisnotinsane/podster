@@ -39,7 +39,11 @@ def source(scope, add, purge, view, url, out):
         click.echo('Purged RSS URL cache')
 
     if view:
-        click.echo('Viewing RSS URL cache')
+        with open('URL_CACHE', 'r') as reader:
+            i = 1
+            for line in reader:
+                click.echo('{0}. {1}'.format(i, line), nl=False)
+                i += 1
 
 
 @cli.command()
