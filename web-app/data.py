@@ -9,7 +9,7 @@ as a list.
 """
 
 
-def get_podcast_list():
+def get_podcast_dict():
     shows_list = list()
     for show in db.shows.find():
         shows_list.append(
@@ -22,7 +22,7 @@ def get_podcast_list():
     return shows_list
 
 
-def get_episode_list(name=None):
+def get_episode_dict(name=None):
     episode_list = db.shows.find_one(
         {'title': name},
         {'_id': 0, 'title': 0, 'description': 0, 'image_url': 0}

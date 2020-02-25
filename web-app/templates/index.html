@@ -4,9 +4,10 @@
 {{ super() }}
 {% endblock %}
 {% block content %}
-    <h4>Podster is the home of podcasts you'll love.</h4>
-    <p>
-        Get started now. 
-        View our <a href="/api/podcasts">API endpoint</a>.
-    </p>
+    <h4>Podster is the home of podcasts you'll love. Get started below.</h4>
+    <ul>
+        <li>GET <a href="/api/podcasts">api/podcasts</a></li>
+        <li>GET <a href="/api/episodes/The Ars Technicast">api/episodes/The Ars Technicast</a> (e.g. 'The Ars Technicast')</li>
+        <li><a href="/library">View library</a></li>
+    </ul>
 {% endblock %}

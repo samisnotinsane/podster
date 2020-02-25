@@ -5,14 +5,14 @@
     {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %} - Podster</title>
+    <title>{% block title %}{% endblock %} &mdash; Podster</title>
     <link rel="stylesheet" type="type/css" href="{{ url_for('static', filename='style.css') }}">
     {% endblock %}
 </head>
 <body>
     <div id="header">
         {% block header %}
-        <h2>Podster (header block)</h2>
+        <h2>Podster</h2>
         {% endblock %}
     </div>
     <div id="content">

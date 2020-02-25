@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Library{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+    <h4>{{ title }}</h4>
+    {% for episode in episodes %}
+        <div class="episode-info">
+            <h5>{{ episode.title }}</h5>
+            <h6>{{ episode.published }}</h6>
+            <p>{{ episode.description }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
