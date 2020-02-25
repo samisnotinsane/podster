@@ -3,19 +3,8 @@ import sys
 import os
 
 
-class Scope(object):
-
-    def __init__(self):
-        self.urlcachepath = '/tmp/url_cache.txt'
-        self.feedcachepath = '/tmp/feed_cache.txt'
-
-
-pass_scope = click.make_pass_decorator(Scope, ensure=True)
-
-
 @click.group()
-@pass_scope
-def cli(scope):
+def cli():
     pass
 
 
@@ -25,8 +14,7 @@ def cli(scope):
 @click.option('--view', is_flag=True, help='View stored RSS URLs.')
 @click.argument('URL', required=False)
 @click.argument('out', type=click.File('a+'), default='URL_CACHE', required=False)
-@pass_scope
-def source(scope, add, purge, view, url, out):
+def source(add, purge, view, url, out):
     if add:
         if url is not None:
             click.echo('Adding RSS URL: {0}'.format(url))
@@ -51,7 +39,6 @@ def source(scope, add, purge, view, url, out):
 @click.option('--update', is_flag=True, help='Overwrite previously downloaded RSS feeds with new data.')
 @click.option('--purge', is_flag=True, help='Delete stored RSS feeds.')
 @click.option('--view', is_flag=True, help='View stored RSS feeds.')
-@pass_scope
 def cache(create, update, purge, view):
     if create:
         click.echo('Creating feed cache from URLs')
@@ -67,7 +54,6 @@ def cache(create, update, purge, view):
 @click.option('--create', is_flag=True, help='Create persistent store with feed data from cache.')
 @click.option('--view', is_flag=True, help='View feed data in persistent store.')
 @click.option('--purge', is_flag=True, help='Delete feed data from persistent store.')
-@pass_scope
 def store(create, view, purge):
     if create:
         click.echo('Creating persistent store with cache data')
