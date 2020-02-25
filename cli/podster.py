@@ -39,7 +39,7 @@ def source(add, purge, view, url, out):
 @click.option('--update', is_flag=True, help='Overwrite previously downloaded RSS feeds with new data.')
 @click.option('--purge', is_flag=True, help='Delete stored RSS feeds.')
 @click.option('--view', is_flag=True, help='View stored RSS feeds.')
-def cache(create, update, purge, view):
+def feed(create, update, purge, view):
     if create:
         click.echo('Creating feed cache from URLs')
     if update:
