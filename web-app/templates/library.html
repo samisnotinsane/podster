@@ -6,7 +6,7 @@
 {% block content %}
     <ul>
         {% for podcast in podcasts %}
-        <li>{{ podcast.title }}</li>
+            <li><a href="{{ url_for('show_episodes', title=podcast.title) }}">{{ podcast.title }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}
