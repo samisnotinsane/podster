@@ -38,19 +38,34 @@ def source(scope, add, purge, view, url):
 
 
 @cli.command()
-@cli.option('--create', is_flag=True, help='Download RSS feeds using RSS URLs from cache.')
-@cli.option('--update', is_flag=True, help='Overwrite previously downloaded RSS feeds with new data.')
-@cli.option('--purge', is_flag=True, help='Delete stored RSS feeds.')
-@cli.option('--view', is_flag=True, help='View stored RSS feeds.')
+@click.option('--create', is_flag=True, help='Download RSS feeds using RSS URLs from cache.')
+@click.option('--update', is_flag=True, help='Overwrite previously downloaded RSS feeds with new data.')
+@click.option('--purge', is_flag=True, help='Delete stored RSS feeds.')
+@click.option('--view', is_flag=True, help='View stored RSS feeds.')
 @pass_scope
 def cache(create, update, purge, view):
-    pass
+    if create:
+        click.echo('Creating feed cache from URLs')
+    if update:
+        click.echo('Updating feed cache with newly downloaded data')
+    if purge:
+        click.echo('Purging feed cache')
+    if view:
+        click.echo('Viewing feed cache')
 
 
 @cli.command()
+@click.option('--create', is_flag=True, help='Create persistent store with feed data from cache.')
+@click.option('--view', is_flag=True, help='View feed data in persistent store.')
+@click.option('--purge', is_flag=True, help='Delete feed data from persistent store.')
 @pass_scope
-def store():
-    pass
+def store(create, view, purge):
+    if create:
+        click.echo('Creating persistent store with cache data')
+    if view:
+        click.echo('Viewing persistent storage data')
+    if purge:
+        click.echo('Purging persistent storage data')
 
 
 if __name__ == '__main__':
