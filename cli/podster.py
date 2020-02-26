@@ -45,14 +45,22 @@ def store(create, view, purge):
     db = client.podster
     shows_collection = db.shows
     if create:
-        click.echo('Creating persistent store with cache data...', nl=False)
-        with open('URL_CACHE', 'r') as reader:
-            for line in reader:
-                cleanline = line.rstrip('\n')
-                parsed_data = feedparser.parse(cleanline)
-                show_data = extract_fields(parsed_data)
-                shows_collection.insert_one(show_data)
-        click.secho('OK!', fg='green')
+        click.secho('CAUTION! ', fg='yellow', nl=False)
+        click.echo('This will purge existing data in persistent storage. Continue (y/n)?')
+        c = click.getchar()
+        if c == 'y':
+            shows_collection.delete_many({})
+            click.echo('Creating persistent store with cache data...', nl=False)
+            with open('URL_CACHE', 'r') as reader:
+                for line in reader:
+                    cleanline = line.rstrip('\n')
+                    parsed_data = feedparser.parse(cleanline)
+                    show_data = extract_fields(cleanline, parsed_data)
+                    shows_collection.insert_one(show_data)
+            click.secho('OK!', fg='green')
+        if c == 'n':
+            click.echo('Cancelled')
+            sys.exit(0)
     if view:
         click.echo('Viewing persistent storage data')
         shows_cursor = shows_collection.find({})
@@ -71,9 +79,10 @@ def store(create, view, purge):
         sys.exit(0)
 
 
-def extract_fields(parsed_data):
+def extract_fields(url, parsed_data):
     """
     Helper for `store` command.
+    :param url: RSS URL from which `parsed_data` originates
     :param parsed_data: RSS feed data already parsed using `feedparser`
     :return: JSON containing show data
     """
@@ -90,6 +99,7 @@ def extract_fields(parsed_data):
     show = {
         'title': channel_title,
         'description': channel_description,
+        'show_url': url,
         'image_url': channel_image_url,
         'episodes': []
     }
