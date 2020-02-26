@@ -1,6 +1,7 @@
 import click
 import sys
 import os
+import requests
 
 
 @click.group()
@@ -42,6 +43,13 @@ def source(add, purge, view, url, out):
 def feed(create, update, purge, view):
     if create:
         click.echo('Creating feed cache from URLs')
+        with open('URL_CACHE', 'r') as reader:
+            for line in reader:
+                cleanline = line.rstrip('\n')
+                click.echo('URL: {0}'.format(cleanline))
+                resp = requests.get(cleanline)
+                click.echo(resp)
+                click.echo(resp.text)
     if update:
         click.echo('Updating feed cache with newly downloaded data')
     if purge:
