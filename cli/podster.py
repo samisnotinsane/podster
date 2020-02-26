@@ -1,7 +1,6 @@
 import click
 import sys
 import os
-import requests
 
 
 @click.group()
@@ -33,29 +32,6 @@ def source(add, purge, view, url, out):
             for line in reader:
                 click.echo('{0}. {1}'.format(i, line), nl=False)
                 i += 1
-
-
-@cli.command()
-@click.option('--create', is_flag=True, help='Download RSS feeds using RSS URLs from cache.')
-@click.option('--update', is_flag=True, help='Overwrite previously downloaded RSS feeds with new data.')
-@click.option('--purge', is_flag=True, help='Delete stored RSS feeds.')
-@click.option('--view', is_flag=True, help='View stored RSS feeds.')
-def feed(create, update, purge, view):
-    if create:
-        click.echo('Creating feed cache from URLs')
-        with open('URL_CACHE', 'r') as reader:
-            for line in reader:
-                cleanline = line.rstrip('\n')
-                click.echo('URL: {0}'.format(cleanline))
-                resp = requests.get(cleanline)
-                click.echo(resp)
-                click.echo(resp.text)
-    if update:
-        click.echo('Updating feed cache with newly downloaded data')
-    if purge:
-        click.echo('Purging feed cache')
-    if view:
-        click.echo('Viewing feed cache')
 
 
 @cli.command()
