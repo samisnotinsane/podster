@@ -1,6 +1,7 @@
-import click
-import sys
 import os
+import sys
+
+import click
 import feedparser
 from pymongo import MongoClient
 
@@ -115,6 +116,10 @@ def extract_fields(url, parsed_data):
             enclosure_length = episode.enclosures[0].length
             enclosure_type = episode.enclosures[0].type
             enclosure_url = episode.enclosures[0].url
+        if episode.links:
+            enclosure_url = episode.links[1].href
+            enclosure_length = episode.links[1].length
+            enclosure_type = episode.links[1].type
         show['episodes'].append(
             {
                 'title': episode_title,
