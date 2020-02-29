@@ -1,12 +1,16 @@
 {% extends "layout.html" %}
 {% block title %}Library{% endblock %}
 {% block head %}
-{{ super() }}
+    {{ super() }}
 {% endblock %}
 {% block content %}
-    <ul>
-        {% for podcast in podcasts %}
-            <li><a href="{{ url_for('show_episodes', title=podcast.title) }}">{{ podcast.title }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <div class="row">
+            <ul>
+                {% for podcast in podcasts %}
+                    <li><a href="{{ url_for('show_episodes', title=podcast.title) }}">{{ podcast.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
