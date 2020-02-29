@@ -1,13 +1,108 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block head %}
-{{ super() }}
+    {{ super() }}
 {% endblock %}
 {% block content %}
-    <h4>Podster is the home of podcasts you'll love. Get started below.</h4>
-    <ul>
-        <li>GET <a href="/api/podcasts">api/podcasts</a></li>
-        <li>GET <a href="/api/episodes/The Ars Technicast">api/episodes/The Ars Technicast</a> (e.g. 'The Ars Technicast')</li>
-        <li><a href="/library">View library</a></li>
-    </ul>
+    <div class="container">
+        <div class="row weather">
+            <div class="nine columns"><h4>Welcome!</h4></div>
+            <div class="three columns">
+                <img height="12" width="12"
+                     src="{{ url_for('static', filename='images/location-arrow.png') }}"> Bexleyheath<br>
+                <b>7</b> &#8451;
+            </div>
+        </div>
+        <div class="current-events-section">
+            <h5>Current Events</h5>
+            <div class="row scrolling-wrapper current-events-shows">
+
+            </div>
+        </div>
+        <hr>
+        <div class="sports-section">
+            <h5>Sports</h5>
+            <div class="row scrolling-wrapper sports-shows">
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="tech-section">
+            <h5>Technology</h5>
+            <div class="row scrolling-wrapper tech-shows">
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="politics-section">
+            <h5>Politics</h5>
+            <div class="row scrolling-wrapper politics-shows">
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="environment-section">
+            <h5>Environment</h5>
+            <div class="row scrolling-wrapper environment-shows">
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+                <div class="card">
+                    <p>show title</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
 {% endblock %}

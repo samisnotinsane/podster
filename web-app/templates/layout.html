@@ -3,27 +3,64 @@
 <html lang="en">
 <head>
     {% block head %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %} &mdash; Podster</title>
-    <link rel="stylesheet" type="type/css" href="{{ url_for('static', filename='style.css') }}">
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %} &mdash; Podster</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='normalize.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='skeleton.css') }}">
+        <link rel="stylesheet" type="type/css" href="{{ url_for('static', filename='style.css') }}">
+
+        <link rel="apple-touch-icon" sizes="180x180"
+              href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32"
+              href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16"
+              href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+        <link rel="manifest" href="/site.webmanifest">
+
     {% endblock %}
 </head>
 <body>
-    <div id="header">
-        {% block header %}
-        <h2>Podster</h2>
-        {% endblock %}
-    </div>
-    <div id="content">
-        {% block content %}
+<div id="header">
+    {% block header %}
+        <div class="container">
+            <div class="row header">
+                <div class="nine columns">
+                    <h1>Podster</h1>
+                </div>
+                <div class="three columns">
+                    <a class="button" href="/api-docs">API Docs</a>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</div>
+<div id="content">
+    {% block content %}
         <p>content block</p>
-        {% endblock %}
-    </div>
-    <div id="footer">
-        {% block footer %}
-        <p>&copy; Copyright 2020 by <a href="https://sameen.info/">Sameen</a>.</p>
-        {% endblock %}
-    </div>
+    {% endblock %}
+</div>
+<div id="footer">
+    {% block footer %}
+        <div class="container footer">
+            <div class="row">
+                <h5>Choose Podster. Choose to feed your curiosity.</h5>
+            </div>
+            <div class="row">
+                <p>&copy; 2020 | Crafted by <a href="https://sameen.info/">Sameen</a>.</p>
+            </div>
+        </div>
+
+    {% endblock %}
+</div>
+<script type=text/javascript src="{{ url_for('static', filename='jquery-3.4.1.js') }}"></script>
+<script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>

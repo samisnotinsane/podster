@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block title %}API Docs{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h5>API Docs</h5>
+            <ul>
+                <li>GET <a href="/api/podcasts">api/podcasts</a></li>
+                <li>GET <a href="/api/episodes/The Ars Technicast">api/episodes/The Ars Technicast</a> (e.g. 'The Ars
+                    Technicast')
+                </li>
+                <li><a href="/library">View library</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
