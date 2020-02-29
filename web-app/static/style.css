@@ -4,12 +4,16 @@ h2 {
 
 .header {
     margin-top: 50px;
-    margin-bottom: 50px;
 }
 
 .footer {
     margin-top: 20px;
     color: grey;
+}
+
+.weather {
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .scrolling-wrapper {
