@@ -18,33 +18,41 @@
               href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" sizes="32x32"
               href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16"
+              href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
         <link rel="manifest" href="/site.webmanifest">
 
     {% endblock %}
 </head>
 <body>
-    <div id="header">
-        {% block header %}
-            <div class="container">
-                <div class="row">
-                    <div class="one column">
-                        <h1>Podster</h1>
-                    </div>
-                    <div class="eleven columns"></div>
+<div id="header">
+    {% block header %}
+        <div class="container">
+            <div class="row">
+                <div class="nine columns">
+                    <h1>Podster</h1>
+                </div>
+                <div class="three columns">
+                    <a class="button" href="/api-docs">API Docs</a>
                 </div>
             </div>
-        {% endblock %}
-    </div>
-    <div id="content">
-        {% block content %}
+        </div>
+    {% endblock %}
+</div>
+<div id="content">
+    {% block content %}
         <p>content block</p>
-        {% endblock %}
-    </div>
-    <div id="footer">
-        {% block footer %}
-        <p>&copy; Copyright 2020 by <a href="https://sameen.info/">Sameen</a>.</p>
-        {% endblock %}
-    </div>
+    {% endblock %}
+</div>
+<div id="footer">
+    {% block footer %}
+        <div class="container">
+            <div class="row">
+                <p>&copy; Copyright 2020 by <a href="https://sameen.info/">Sameen</a>.</p>
+            </div>
+        </div>
+
+    {% endblock %}
+</div>
 </body>
 </html>
