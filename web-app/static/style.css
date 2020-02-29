@@ -2,6 +2,16 @@ h2 {
     color: white;
 }
 
+.header {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.footer {
+    margin-top: 20px;
+    color: grey;
+}
+
 .scrolling-wrapper {
     overflow-x: scroll;
     overflow-y: hidden;
