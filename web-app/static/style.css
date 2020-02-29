@@ -1,0 +1,27 @@
+h2 {
+    color: white;
+}
+
+.scrolling-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.card {
+    display: inline-block;
+
+    /*uncomment to debug*/
+    /*border: 2px solid red;*/
+    /*background: greenyellow;*/
+
+    width: 125px;
+    height: 125px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
