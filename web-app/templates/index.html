@@ -1,13 +1,41 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block head %}
-{{ super() }}
+    {{ super() }}
 {% endblock %}
 {% block content %}
-    <h4>Podster is the home of podcasts you'll love. Get started below.</h4>
+    <div class="container">
+        <div class="row">
+            <div class="nine columns"><p></p></div>
+            <div class="three columns">
+                <img height="12" width="12"
+                     src="{{ url_for('static', filename='images/location-arrow.png') }}"> <h5>Bexleyheath</h5><br>
+                <b>7</b> &#8451;
+            </div>
+        </div>
+        <div class="current-events-section">
+            <h5>Current Events</h5>
+            <div class="row current-events-shows">
+                <div class="three columns">
+                    <p>show 1 sample</p>
+                </div>
+                <div class="three columns">
+                    <p>show 1 sample</p>
+                </div>
+                <div class="three columns">
+                    <p>show 1 sample</p>
+                </div>
+                <div class="three columns">
+                    <p>show 1 sample</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <ul>
         <li>GET <a href="/api/podcasts">api/podcasts</a></li>
-        <li>GET <a href="/api/episodes/The Ars Technicast">api/episodes/The Ars Technicast</a> (e.g. 'The Ars Technicast')</li>
+        <li>GET <a href="/api/episodes/The Ars Technicast">api/episodes/The Ars Technicast</a> (e.g. 'The Ars
+            Technicast')
+        </li>
         <li><a href="/library">View library</a></li>
     </ul>
 {% endblock %}

@@ -3,16 +3,37 @@
 <html lang="en">
 <head>
     {% block head %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %} &mdash; Podster</title>
-    <link rel="stylesheet" type="type/css" href="{{ url_for('static', filename='style.css') }}">
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %} &mdash; Podster</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='normalize.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='skeleton.css') }}">
+        <link rel="stylesheet" type="type/css" href="{{ url_for('static', filename='style.css') }}">
+
+        <link rel="apple-touch-icon" sizes="180x180"
+              href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32"
+              href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+        <link rel="manifest" href="/site.webmanifest">
+
     {% endblock %}
 </head>
 <body>
     <div id="header">
         {% block header %}
-        <h2>Podster</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="one column">
+                        <h1>Podster</h1>
+                    </div>
+                    <div class="eleven columns"></div>
+                </div>
+            </div>
         {% endblock %}
     </div>
     <div id="content">
