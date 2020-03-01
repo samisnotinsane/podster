@@ -117,9 +117,10 @@ def extract_fields(url, parsed_data):
             enclosure_type = episode.enclosures[0].type
             enclosure_url = episode.enclosures[0].url
         if episode.links:
-            enclosure_url = episode.links[1].href
-            enclosure_length = episode.links[1].length
-            enclosure_type = episode.links[1].type
+            if len(episode.links) > 1:
+                enclosure_url = episode.links[1].href
+                enclosure_length = episode.links[1].length
+                enclosure_type = episode.links[1].type
         show['episodes'].append(
             {
                 'title': episode_title,
