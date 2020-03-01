@@ -57,7 +57,8 @@ def store(create, view, purge):
                     cleanline = line.rstrip('\n')
                     parsed_data = feedparser.parse(cleanline)
                     show_data = extract_fields(cleanline, parsed_data)
-                    shows_collection.insert_one(show_data)
+                    if show_data != -1:
+                        shows_collection.insert_one(show_data)
             click.secho('OK!', fg='green')
         if c == 'n':
             click.echo('Cancelled')
@@ -90,6 +91,9 @@ def extract_fields(url, parsed_data):
     show = dict()
 
     channel = parsed_data.channel
+    # do not save podcast with no title
+    if not hasattr(channel, 'title'):
+        return -1
     channel_title = channel.title
     channel_description = channel.description
     channel_image_url = ''
