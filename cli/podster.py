@@ -2,6 +2,7 @@ import os
 import sys
 
 import click
+import requests
 import feedparser
 from pymongo import MongoClient
 
@@ -15,9 +16,16 @@ def cli():
 @click.option('--add', is_flag=True, help='RSS URL of podcast feed.')
 @click.option('--purge', is_flag=True, help='Delete stored RSS URLs.')
 @click.option('--view', is_flag=True, help='View stored RSS URLs.')
+@click.option('--ext', is_flag=True, help='Read RSS URLs from a web URL')
 @click.argument('URL', required=False)
 @click.argument('out', type=click.File('a+'), default='URL_CACHE', required=False)
-def source(add, purge, view, url, out):
+@click.argument('link', required=False)
+def source(add, purge, view, ext, url, out, link):
+    if ext:
+        if link is not None:
+            response = requests.get(link)
+            data = response.text
+            click.echo(data, file=out)
     if add:
         if url is not None:
             click.echo('Adding RSS URL: {0}'.format(url))
@@ -121,10 +129,15 @@ def extract_fields(url, parsed_data):
             enclosure_type = episode.enclosures[0].type
             enclosure_url = episode.enclosures[0].url
         if episode.links:
-            if len(episode.links) > 1:
-                enclosure_url = episode.links[1].href
-                enclosure_length = episode.links[1].length
-                enclosure_type = episode.links[1].type
+            if len(episode.links) == 2:
+                if hasattr(episode.links[0], 'length'):
+                    enclosure_url = episode.links[0].href
+                    enclosure_length = episode.links[0].length
+                    enclosure_type = episode.links[0].type
+                if hasattr(episode.links[1], 'length'):
+                    enclosure_url = episode.links[1].href
+                    enclosure_length = episode.links[1].length
+                    enclosure_type = episode.links[1].type
         show['episodes'].append(
             {
                 'title': episode_title,
