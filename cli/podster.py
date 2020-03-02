@@ -1,9 +1,12 @@
 import os
 import sys
+import time
 
 import click
+import requests
 import feedparser
 from pymongo import MongoClient
+from io import BytesIO
 
 
 @click.group()
@@ -15,9 +18,16 @@ def cli():
 @click.option('--add', is_flag=True, help='RSS URL of podcast feed.')
 @click.option('--purge', is_flag=True, help='Delete stored RSS URLs.')
 @click.option('--view', is_flag=True, help='View stored RSS URLs.')
+@click.option('--ext', is_flag=True, help='Read RSS URLs from a web URL')
 @click.argument('URL', required=False)
 @click.argument('out', type=click.File('a+'), default='URL_CACHE', required=False)
-def source(add, purge, view, url, out):
+@click.argument('link', required=False)
+def source(add, purge, view, ext, url, out, link):
+    if ext:
+        if link is not None:
+            response = requests.get(link, timeout=2)
+            data = response.text
+            click.echo(data, file=out)
     if add:
         if url is not None:
             click.echo('Adding RSS URL: {0}'.format(url))
@@ -55,10 +65,29 @@ def store(create, view, purge):
             with open('URL_CACHE', 'r') as reader:
                 for line in reader:
                     cleanline = line.rstrip('\n')
-                    parsed_data = feedparser.parse(cleanline)
-                    show_data = extract_fields(cleanline, parsed_data)
-                    if show_data != -1:
-                        shows_collection.insert_one(show_data)
+                    try:
+                        start = time.time()
+                        resp = requests.get(cleanline, timeout=1.0)
+                        end = time.time()
+                        click.echo('Response in {0}s'.format(end - start))
+                    except requests.ReadTimeout:
+                        click.secho("Timeout when reading RSS URL: {0}".format(cleanline), fg='red')
+                    except requests.ConnectionError:
+                        click.secho("Connection error when reading RSS URL: {0}".format(cleanline), fg='red')
+                    content = BytesIO(resp.content)
+                    try:
+                        parsed_data = feedparser.parse(content)
+                    except StopIteration:
+                        click.secho("StopIteration error when reading RSS URL: {0}".format(cleanline), fg='red')
+                    try:
+                        show_data = extract_fields(cleanline, parsed_data)
+                        if show_data != -1:
+                            try:
+                                shows_collection.insert_one(show_data)
+                            except MongoClient.DuplicateKeyError:
+                                continue
+                    except AttributeError:
+                        click.secho("Unable to parse RSS URL: {0}".format(cleanline), fg='red')
             click.secho('OK!', fg='green')
         if c == 'n':
             click.echo('Cancelled')
@@ -121,10 +150,15 @@ def extract_fields(url, parsed_data):
             enclosure_type = episode.enclosures[0].type
             enclosure_url = episode.enclosures[0].url
         if episode.links:
-            if len(episode.links) > 1:
-                enclosure_url = episode.links[1].href
-                enclosure_length = episode.links[1].length
-                enclosure_type = episode.links[1].type
+            if len(episode.links) == 2:
+                if hasattr(episode.links[0], 'length'):
+                    enclosure_url = episode.links[0].href
+                    enclosure_length = episode.links[0].length
+                    enclosure_type = episode.links[0].type
+                if hasattr(episode.links[1], 'length'):
+                    enclosure_url = episode.links[1].href
+                    enclosure_length = episode.links[1].length
+                    enclosure_type = episode.links[1].type
         show['episodes'].append(
             {
                 'title': episode_title,
