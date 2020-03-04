@@ -52,14 +52,14 @@ h2 {
     width: 90%;
     justify-content: center;
     flex-direction: column;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 .recently-added-container .header-section {
     display: flex;
     justify-content: space-between;
-    border: 1px solid red;
     height: 50px;
+    /*border: 1px solid red;*/
 }
 
 .recently-added-container .header-section .recently-added-title {
@@ -68,18 +68,18 @@ h2 {
     align-items: center;
     font-weight: bold;
     font-size: x-large;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 .recently-added-container .arrow-section {
     display: flex;
     width: 5%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 .recently-added-container .navigation-arrow {
     margin: auto;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 .recently-added-container .show-section {
@@ -87,8 +87,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     height: 200px;
-    border: 1px solid red;
-
+    /*border: 1px solid red;*/
 }
 
 .recently-added-container .show-grid-item {
