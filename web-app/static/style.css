@@ -1,5 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 h2 {
-    color: white;
+    /*color: white;*/
 }
 
 .header {
@@ -39,3 +45,58 @@ h2 {
     margin-left: 50px;
     margin-right: 50px;
 }
+
+/* Recently Added */
+.recently-added-container {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid red;
+}
+
+.recently-added-container .header-section {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid red;
+    height: 50px;
+}
+
+.recently-added-container .header-section .recently-added-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: x-large;
+    border: 1px solid red;
+}
+
+.recently-added-container .arrow-section {
+    display: flex;
+    width: 5%;
+    border: 1px solid red;
+}
+
+.recently-added-container .navigation-arrow {
+    margin: auto;
+    border: 1px solid red;
+}
+
+.recently-added-container .show-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px;
+    border: 1px solid red;
+
+}
+
+.recently-added-container .show-grid-item {
+    display: flex;
+    padding: 0 2% 0 2%;
+    height: 150px;
+    width: 150px;
+    border: 1px solid red;
+}
+
+/* ------------- */
