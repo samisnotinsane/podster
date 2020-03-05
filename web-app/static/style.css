@@ -81,7 +81,7 @@ h2 {
     display: flex;
     justify-content: center;
     margin: 20% 20% 20% 20%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 .left-pane .menu-pane {
@@ -89,7 +89,7 @@ h2 {
     flex-direction: column;
     justify-content: space-between;
     margin: 20% 20% 20% 20%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 .left-pane .settings-pane {
@@ -97,7 +97,7 @@ h2 {
     flex-direction: column;
     justify-content: space-between;
     margin: auto 20% 20% 20%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 /* Center Pane */
