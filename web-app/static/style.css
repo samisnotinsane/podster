@@ -17,11 +17,6 @@ h2 {
     color: grey;
 }
 
-.weather {
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-
 .scrolling-wrapper {
     overflow-x: scroll;
     overflow-y: hidden;
@@ -44,6 +39,63 @@ h2 {
     height: 125px;
     margin-left: 50px;
     margin-right: 50px;
+}
+
+/* Top Level Pane */
+.top-level-pane {
+    display: flex;
+    height: 1000px;
+    background-color: lightblue;
+    border: 1px solid red;
+}
+
+/* Left Pane */
+.left-pane {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    border: 1px solid red;
+}
+
+.left-pane .logo-pane {
+    display: flex;
+    justify-content: center;
+    border: 1px solid red;
+    margin: 20% 20% 20% 20%;
+}
+
+.left-pane .menu-pane {
+    border: 1px solid red;
+}
+
+/* Center Pane */
+.center-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 60%;
+}
+
+/* Top Pane */
+.top-pane {
+    border: 1px solid red;
+}
+
+/* Middle Pane */
+.middle-pane {
+    border: 1px solid red;
+}
+
+/* Bottom Pane */
+.bottom-pane {
+    border: 1px solid red;
+}
+
+/* Right Pane */
+.right-pane {
+    display: flex;
+    width: 20%;
+    border: 1px solid red;
 }
 
 /* Recently Added */

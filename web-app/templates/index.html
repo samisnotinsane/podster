@@ -4,106 +4,37 @@
     {{ super() }}
 {% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="row weather">
-            <div class="nine columns"><h4>Welcome!</h4></div>
-            <div class="three columns">
-                <img height="12" width="12"
-                     src="{{ url_for('static', filename='images/location-arrow.png') }}"> Bexleyheath<br>
-                <b>7</b> &#8451;
-            </div>
-        </div>
-        {% include "recently-added.html" %}
-        <div class="current-events-section">
-            <h5>Current Events</h5>
-            <div class="row scrolling-wrapper current-events-shows">
+    <div class="top-level-pane">
+        <div class="left-pane">
 
+            <div class="logo-pane">
+                <img src="{{ url_for('static', filename='images/podster-logo.png') }}"  alt="Podster logo" height="82" width="82" >
+            </div>
+
+            <div class="menu-pane">
+                <button>Explore</button>
+                <button>Favorites</button>
             </div>
         </div>
-        <hr>
-        <div class="sports-section">
-            <h5>Sports</h5>
-            <div class="row scrolling-wrapper sports-shows">
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
+
+        <div class="center-pane">
+            <div class="top-pane">
+                top-pane
+            </div>
+
+            <div class="middle-pane">
+                middle-pane
+                {% include "recently-added.html" %}
+            </div>
+
+            <div class="bottom-pane">
+                bottom-pane
             </div>
         </div>
-        <hr>
-        <div class="tech-section">
-            <h5>Technology</h5>
-            <div class="row scrolling-wrapper tech-shows">
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-            </div>
+
+
+        <div class="right-pane">
+            right-pane
         </div>
-        <hr>
-        <div class="politics-section">
-            <h5>Politics</h5>
-            <div class="row scrolling-wrapper politics-shows">
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="environment-section">
-            <h5>Environment</h5>
-            <div class="row scrolling-wrapper environment-shows">
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-            </div>
-        </div>
-        <hr>
     </div>
 {% endblock %}
