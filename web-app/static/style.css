@@ -113,13 +113,25 @@ h2 {
 /* Top Pane */
 .top-pane {
     display: flex;
+    justify-content: flex-start;
     width: 100%;
     border: 1px solid red;
 }
 
-.top-pane .search input {
-    width: 250px;
-    margin-left: 20%;
+.top-pane .search {
+    display: flex;
+    width: 50%;
+    margin-top: 2%;
+    margin-left: 5%;
+}
+
+.search input {
+    width: 300px;
+}
+
+.top-pane .suggestion-pane {
+    display: flex;
+    border: 1px solid red;
 }
 
 /* Middle Pane */
