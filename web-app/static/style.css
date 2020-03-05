@@ -115,14 +115,15 @@ h2 {
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 .top-pane .search {
     display: flex;
     width: 50%;
-    margin-top: 2%;
+    margin-top: 2.5%;
     margin-left: 5%;
+    /*border: 1px solid red;*/
 }
 
 .search input {
@@ -131,7 +132,21 @@ h2 {
 
 .top-pane .suggestion-pane {
     display: flex;
-    border: 1px solid red;
+    width: 100%;
+    justify-content: space-around;
+    /*border: 1px solid red;*/
+}
+
+.suggestion-pane .suggestion-item {
+    display: flex;
+    background: #eeeeee;
+    border-radius: 25px;
+    width: 80px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-left: 10px;
+    color: #444444;
+    /*border: 1px solid red;*/
 }
 
 /* Middle Pane */
