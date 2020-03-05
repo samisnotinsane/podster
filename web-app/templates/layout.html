@@ -27,16 +27,16 @@
 <body>
 <div id="header">
     {% block header %}
-        <div class="container">
-            <div class="row header">
-                <div class="nine columns">
-                    <h1>Podster</h1>
-                </div>
-                <div class="three columns">
-                    <a class="button" href="/api-docs">API Docs</a>
-                </div>
-            </div>
-        </div>
+        {#        <div class="container">#}
+        {#            <div class="row header">#}
+        {#                <div class="nine columns">#}
+        {#                    <h1>Podster</h1>#}
+        {#                </div>#}
+        {#                <div class="three columns">#}
+        {#                    <a class="button" href="/api-docs">API Docs</a>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
     {% endblock %}
 </div>
 <div id="content">
@@ -46,13 +46,18 @@
 </div>
 <div id="footer">
     {% block footer %}
-        <div class="container footer">
-            <div class="row">
-                <h5>Choose Podster. Choose to feed your curiosity.</h5>
+        <div class="footer-pane">
+            <div class="slogan">
+                <div class="slogan-top">
+                    <h5>Choose Podster. Choose to feed your curiosity.</h5>
+                    Follow us on social media:
+                    <a>Twitter</a> | <a>Instagram</a> | <a>Facebook</a>
+                </div>
+                <div class="slogan-bottom">
+                    <p>&copy; 2020 | Crafted by <a href="https://sameen.info/">Sameen</a>.</p>
+                </div>
             </div>
-            <div class="row">
-                <p>&copy; 2020 | Crafted by <a href="https://sameen.info/">Sameen</a>.</p>
-            </div>
+
         </div>
 
     {% endblock %}
