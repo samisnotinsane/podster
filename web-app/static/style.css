@@ -151,6 +151,9 @@ h2 {
 
 /* Middle Pane */
 .middle-pane {
+    display: flex;
+    justify-content: center;
+    width: 100%;
     border: 1px solid red;
 }
 
@@ -169,8 +172,6 @@ h2 {
 /* Recently Added */
 .recently-added-container {
     display: flex;
-    width: 90%;
-    justify-content: center;
     flex-direction: column;
     /*border: 1px solid red;*/
 }
