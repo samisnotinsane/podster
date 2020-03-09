@@ -64,7 +64,7 @@ h2 {
 /* Top Level Pane */
 .top-level-pane {
     display: flex;
-    height: 1000px;
+    height: 600px;
     /*background-color: lightblue;*/
     border: 1px solid red;
 }
@@ -216,6 +216,30 @@ h2 {
     padding: 0 2% 0 2%;
     height: 150px;
     width: 150px;
+    border: 1px solid red;
+}
+
+/* ------------- */
+
+/* Player Pane */
+.player-top-level-pane {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid red;
+}
+
+.show-metadata-pane {
+
+    border: 1px solid red;
+}
+
+.player-controls-pane {
+
+    border: 1px solid red;
+}
+
+.volume-control-pane {
+
     border: 1px solid red;
 }
 
