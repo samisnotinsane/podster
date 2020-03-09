@@ -234,8 +234,28 @@ h2 {
 }
 
 .player-controls-pane {
-
+    width: 40%;
     border: 1px solid red;
+}
+
+.player-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.player-button {
+    margin-left: 8px;
+}
+
+.player-seeker {
+    width: 100%;
+    background-color: grey;
+}
+
+.player-seeker .seeker-bar {
+    width: 1%;
+    height: 30px;
+    background-color: green;
 }
 
 .volume-control-pane {
