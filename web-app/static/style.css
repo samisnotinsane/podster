@@ -64,7 +64,7 @@ h2 {
 /* Top Level Pane */
 .top-level-pane {
     display: flex;
-    height: 1000px;
+    height: 580px;
     /*background-color: lightblue;*/
     border: 1px solid red;
 }
@@ -154,12 +154,18 @@ h2 {
     display: flex;
     justify-content: center;
     width: 100%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 /* Bottom Pane */
 .bottom-pane {
-    border: 1px solid red;
+    width: 80%;
+    /*border: 1px solid red;*/
+}
+
+.up-next-title {
+    font-weight: bold;
+    font-size: x-large;
 }
 
 /* Right Pane */
@@ -217,6 +223,111 @@ h2 {
     height: 150px;
     width: 150px;
     border: 1px solid red;
+}
+
+/* ------------- */
+
+/* Player Pane */
+.player-top-level-pane {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid red;
+}
+
+.show-metadata-pane {
+    display: flex;
+    margin-left: 2%;
+    /*border: 1px solid red;*/
+}
+
+.show-cover {
+    padding-top: 6px;
+    /*border: 1px solid red;*/
+}
+
+.show-cover img {
+    height: 52px;
+    width: 52px;
+    /*border: 1px solid red;*/
+}
+
+.name-artist-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 12px;
+    padding-top: 6px;
+    /*border: 1px solid red;*/
+}
+
+.player-controls-pane {
+    width: 40%;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    /*border: 1px solid red;*/
+}
+
+.player-buttons {
+    display: flex;
+    justify-content: center;
+    /*border: 1px solid red;*/
+}
+
+.player-button {
+    margin-left: 8px;
+}
+
+.player-seeker {
+    width: 100%;
+    margin-top: 12px;
+    background-color: #eeeeee;
+    /*border: 1px solid red;*/
+}
+
+.player-seeker .seeker-bar {
+    width: 1%;
+    height: 5px;
+    background-color: #4CAF50;
+}
+
+.volume-control-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 2%;
+    width: 12%;
+    /*border: 1px solid red;*/
+}
+
+.volume-controls {
+    display: flex;
+    justify-content: center;
+}
+
+.vol-mute {
+    display: flex;
+    margin-right: 4px;
+}
+
+.volume-slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.volume-slider {
+    display: flex;
+    /*width: 100%;*/
+    height: 5px;
+    background-color: #4CAF50;
+    /*border: 1px solid red;*/
+}
+
+.vol-slider-bar {
+    width: 1%;
+    height: 5px;
+    background-color: #4CAF50;
 }
 
 /* ------------- */
