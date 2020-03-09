@@ -64,7 +64,7 @@ h2 {
 /* Top Level Pane */
 .top-level-pane {
     display: flex;
-    height: 600px;
+    height: 580px;
     /*background-color: lightblue;*/
     border: 1px solid red;
 }
@@ -256,12 +256,15 @@ h2 {
 
 .player-controls-pane {
     width: 40%;
+    margin-top: 12px;
+    margin-bottom: 6px;
     /*border: 1px solid red;*/
 }
 
 .player-buttons {
     display: flex;
     justify-content: center;
+    /*border: 1px solid red;*/
 }
 
 .player-button {
@@ -270,8 +273,9 @@ h2 {
 
 .player-seeker {
     width: 100%;
-    margin-top: 4px;
+    margin-top: 12px;
     background-color: #eeeeee;
+    /*border: 1px solid red;*/
 }
 
 .player-seeker .seeker-bar {
