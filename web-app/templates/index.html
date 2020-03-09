@@ -45,8 +45,13 @@
     </div>
     <div class="player-top-level-pane">
         <div class="show-metadata-pane">
-            <div class="show-name">{NAME}</div>
-            <div class="show-artist">{ARTIST}</div>
+            <div class="show-cover">
+                <img src="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+            </div>
+            <div class="name-artist-wrapper">
+                <div class="show-name">{NAME}</div>
+                <div class="show-artist">{ARTIST}</div>
+            </div>
         </div>
         <div class="player-controls-pane">
             <div class="player-buttons">
