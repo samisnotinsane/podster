@@ -1,19 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 h2 {
-    color: white;
+    /*color: white;*/
 }
 
 .header {
     margin-top: 50px;
 }
 
-.footer {
-    margin-top: 20px;
+.footer-pane {
+    display: flex;
     color: grey;
+    background-color: #80FFD7;
+    height: 200px;
+    justify-content: flex-start;
+
 }
 
-.weather {
-    margin-top: 25px;
-    margin-bottom: 25px;
+.footer-pane .slogan {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20%;
+    justify-content: space-between;
+    /*border: 1px solid red;*/
+}
+
+.slogan .slogan-top {
+    /*border: 1px solid red;*/
+}
+
+.slogan .slogan-bottom {
+    /*border: 1px solid red;*/
 }
 
 .scrolling-wrapper {
@@ -39,3 +60,268 @@ h2 {
     margin-left: 50px;
     margin-right: 50px;
 }
+
+/* Top Level Pane */
+.top-level-pane {
+    display: flex;
+    height: 580px;
+    /*background-color: lightblue;*/
+    border: 1px solid red;
+}
+
+/* Left Pane */
+.left-pane {
+    display: flex;
+    background: #eee;
+    flex-direction: column;
+    width: 20%;
+    /*border: 1px solid red;*/
+}
+
+.left-pane .logo-pane {
+    display: flex;
+    justify-content: center;
+    margin: 20% 20% 20% 20%;
+    /*border: 1px solid red;*/
+}
+
+.left-pane .menu-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 20% 20% 20% 20%;
+    /*border: 1px solid red;*/
+}
+
+.left-pane .settings-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto 20% 20% 20%;
+    /*border: 1px solid red;*/
+}
+
+/* Center Pane */
+.center-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 60%;
+}
+
+/* Top Pane */
+.top-pane {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    /*border: 1px solid red;*/
+}
+
+.top-pane .search {
+    display: flex;
+    width: 50%;
+    margin-top: 2.5%;
+    margin-left: 5%;
+    /*border: 1px solid red;*/
+}
+
+.search input {
+    width: 300px;
+}
+
+.top-pane .suggestion-pane {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    /*border: 1px solid red;*/
+}
+
+.suggestion-pane .suggestion-item {
+    display: flex;
+    background: #eeeeee;
+    border-radius: 25px;
+    width: 80px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-left: 10px;
+    color: #444444;
+    /*border: 1px solid red;*/
+}
+
+/* Middle Pane */
+.middle-pane {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border: 1px solid red;
+}
+
+/* Bottom Pane */
+.bottom-pane {
+    border: 1px solid red;
+}
+
+/* Right Pane */
+.right-pane {
+    display: flex;
+    width: 20%;
+    border: 1px solid red;
+}
+
+/* Recently Added */
+.recently-added-container {
+    display: flex;
+    flex-direction: column;
+    /*border: 1px solid red;*/
+}
+
+.recently-added-container .header-section {
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    /*border: 1px solid red;*/
+}
+
+.recently-added-container .header-section .recently-added-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: x-large;
+    /*border: 1px solid red;*/
+}
+
+.recently-added-container .arrow-section {
+    display: flex;
+    width: 5%;
+    /*border: 1px solid red;*/
+}
+
+.recently-added-container .navigation-arrow {
+    margin: auto;
+    /*border: 1px solid red;*/
+}
+
+.recently-added-container .show-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px;
+    /*border: 1px solid red;*/
+}
+
+.recently-added-container .show-grid-item {
+    display: flex;
+    padding: 0 2% 0 2%;
+    height: 150px;
+    width: 150px;
+    border: 1px solid red;
+}
+
+/* ------------- */
+
+/* Player Pane */
+.player-top-level-pane {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid red;
+}
+
+.show-metadata-pane {
+    display: flex;
+    margin-left: 2%;
+    /*border: 1px solid red;*/
+}
+
+.show-cover {
+    padding-top: 6px;
+    /*border: 1px solid red;*/
+}
+
+.show-cover img {
+    height: 52px;
+    width: 52px;
+    /*border: 1px solid red;*/
+}
+
+.name-artist-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 12px;
+    padding-top: 6px;
+    /*border: 1px solid red;*/
+}
+
+.player-controls-pane {
+    width: 40%;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    /*border: 1px solid red;*/
+}
+
+.player-buttons {
+    display: flex;
+    justify-content: center;
+    /*border: 1px solid red;*/
+}
+
+.player-button {
+    margin-left: 8px;
+}
+
+.player-seeker {
+    width: 100%;
+    margin-top: 12px;
+    background-color: #eeeeee;
+    /*border: 1px solid red;*/
+}
+
+.player-seeker .seeker-bar {
+    width: 1%;
+    height: 5px;
+    background-color: #4CAF50;
+}
+
+.volume-control-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 2%;
+    width: 12%;
+    /*border: 1px solid red;*/
+}
+
+.volume-controls {
+    display: flex;
+    justify-content: center;
+}
+
+.vol-mute {
+    display: flex;
+    margin-right: 4px;
+}
+
+.volume-slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.volume-slider {
+    display: flex;
+    /*width: 100%;*/
+    height: 5px;
+    background-color: #4CAF50;
+    /*border: 1px solid red;*/
+}
+
+.vol-slider-bar {
+    width: 1%;
+    height: 5px;
+    background-color: #4CAF50;
+}
+
+/* ------------- */

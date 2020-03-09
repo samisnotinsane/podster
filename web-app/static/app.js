@@ -1,15 +1,16 @@
 $(document).ready(function () {
-    console.log("ready!");
+    // console.log("ready!");
     $.getJSON('/api/podcasts', function (data) {
         $.each(data, function (key, val) {
-            console.log('key: ' + key);
+            // console.log('key: ' + key);
             $.each(val, function (idx, epi) {
-                console.log('title: ' + epi.title);
-                console.log('description: ' + epi.description);
+                // console.log('title: ' + epi.title);
+                // console.log('description: ' + epi.description);
                 $('.current-events-shows').append(
                     '<div class="card">\n' +
                         '<a href="/show-detail">' +
-                        '<img src=\" ' + epi.image_url + '\" height="125" width="125" >' +
+                        // save bandwidth by not d/l-ing cover when debugging
+                        // '<img src=\" ' + epi.image_url + '\" height="125" width="125" >' +
                          '</a>' +
                     '</div>'
                 );

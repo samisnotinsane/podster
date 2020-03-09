@@ -25,36 +25,9 @@
     {% endblock %}
 </head>
 <body>
-<div id="header">
-    {% block header %}
-        <div class="container">
-            <div class="row header">
-                <div class="nine columns">
-                    <h1>Podster</h1>
-                </div>
-                <div class="three columns">
-                    <a class="button" href="/api-docs">API Docs</a>
-                </div>
-            </div>
-        </div>
-    {% endblock %}
-</div>
 <div id="content">
     {% block content %}
         <p>content block</p>
-    {% endblock %}
-</div>
-<div id="footer">
-    {% block footer %}
-        <div class="container footer">
-            <div class="row">
-                <h5>Choose Podster. Choose to feed your curiosity.</h5>
-            </div>
-            <div class="row">
-                <p>&copy; 2020 | Crafted by <a href="https://sameen.info/">Sameen</a>.</p>
-            </div>
-        </div>
-
     {% endblock %}
 </div>
 <script type=text/javascript src="{{ url_for('static', filename='jquery-3.4.1.js') }}"></script>
@@ -62,5 +35,6 @@
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 </script>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="https://kit.fontawesome.com/23b22543b1.js" crossorigin="anonymous"></script>
 </body>
 </html>

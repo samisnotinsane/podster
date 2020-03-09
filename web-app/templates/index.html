@@ -4,105 +4,83 @@
     {{ super() }}
 {% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="row weather">
-            <div class="nine columns"><h4>Welcome!</h4></div>
-            <div class="three columns">
-                <img height="12" width="12"
-                     src="{{ url_for('static', filename='images/location-arrow.png') }}"> Bexleyheath<br>
-                <b>7</b> &#8451;
-            </div>
-        </div>
-        <div class="current-events-section">
-            <h5>Current Events</h5>
-            <div class="row scrolling-wrapper current-events-shows">
+    <div class="top-level-pane">
+        <div class="left-pane">
 
+            <div class="logo-pane">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='images/podster-logo.png') }}"
+                         alt="Podster logo" height="82" width="82">
+                </a>
+            </div>
+
+            <div class="menu-pane">
+                <button>🧭 Explore</button>
+                <button>💎 Favorites</button>
+            </div>
+
+            <div class="settings-pane">
+                <a class="button" href="/api-docs">API Docs</a>
             </div>
         </div>
-        <hr>
-        <div class="sports-section">
-            <h5>Sports</h5>
-            <div class="row scrolling-wrapper sports-shows">
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
+
+        <div class="center-pane">
+            <div class="top-pane">
+                {% include "top-pane.html" %}
+            </div>
+
+            <div class="middle-pane">
+                {% include "recently-added.html" %}
+            </div>
+
+            <div class="bottom-pane">
+                bottom-pane
             </div>
         </div>
-        <hr>
-        <div class="tech-section">
-            <h5>Technology</h5>
-            <div class="row scrolling-wrapper tech-shows">
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
+
+
+        <div class="right-pane">
+            right-pane
+        </div>
+    </div>
+    <div class="player-top-level-pane">
+        <div class="show-metadata-pane">
+            <div class="show-cover">
+                <img src="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+            </div>
+            <div class="name-artist-wrapper">
+                <div class="show-name">{NAME}</div>
+                <div class="show-artist">{ARTIST}</div>
             </div>
         </div>
-        <hr>
-        <div class="politics-section">
-            <h5>Politics</h5>
-            <div class="row scrolling-wrapper politics-shows">
-                <div class="card">
-                    <p>show title</p>
+        <div class="player-controls-pane">
+            <div class="player-buttons">
+                <div class="player-button">
+                    <i class="fas fa-backward"></i>
                 </div>
-                <div class="card">
-                    <p>show title</p>
+                <div class="player-button">
+                    <i class="fas fa-play"></i>
                 </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
+                <div class="player-button">
+                    <i class="fas fa-forward"></i>
                 </div>
             </div>
+            <div class="player-seeker">
+                <div class="seeker-bar"></div>
+            </div>
         </div>
-        <hr>
-        <div class="environment-section">
-            <h5>Environment</h5>
-            <div class="row scrolling-wrapper environment-shows">
-                <div class="card">
-                    <p>show title</p>
+        <div class="volume-control-pane">
+            <div class="volume-controls">
+                <div class="vol-mute">
+                    <i class="fas fa-volume-mute"></i>
                 </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
-                </div>
-                <div class="card">
-                    <p>show title</p>
+                <div class="volume-slider-wrapper">
+                    <div class="volume-slider">
+                        <div class="vol-slider-bar"></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <hr>
+
     </div>
 {% endblock %}
