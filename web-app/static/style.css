@@ -154,12 +154,18 @@ h2 {
     display: flex;
     justify-content: center;
     width: 100%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 /* Bottom Pane */
 .bottom-pane {
-    border: 1px solid red;
+    width: 80%;
+    /*border: 1px solid red;*/
+}
+
+.up-next-title {
+    font-weight: bold;
+    font-size: x-large;
 }
 
 /* Right Pane */
