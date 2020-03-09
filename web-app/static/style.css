@@ -229,13 +229,13 @@ h2 {
 }
 
 .show-metadata-pane {
-
-    border: 1px solid red;
+    margin-left: 2%;
+    /*border: 1px solid red;*/
 }
 
 .player-controls-pane {
     width: 40%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 .player-buttons {
@@ -260,8 +260,43 @@ h2 {
 }
 
 .volume-control-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 2%;
+    width: 12%;
+    /*border: 1px solid red;*/
+}
 
-    border: 1px solid red;
+.volume-controls {
+    display: flex;
+    justify-content: center;
+}
+
+.vol-mute {
+    display: flex;
+    margin-right: 4px;
+}
+
+.volume-slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.volume-slider {
+    display: flex;
+    /*width: 100%;*/
+    height: 5px;
+    background-color: #4CAF50;
+    /*border: 1px solid red;*/
+}
+
+.vol-slider-bar {
+    width: 1%;
+    height: 5px;
+    background-color: #4CAF50;
 }
 
 /* ------------- */

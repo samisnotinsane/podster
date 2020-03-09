@@ -10,7 +10,7 @@
             <div class="logo-pane">
                 <a href="/">
                     <img src="{{ url_for('static', filename='images/podster-logo.png') }}"
-                     alt="Podster logo" height="82" width="82" >
+                         alt="Podster logo" height="82" width="82">
                 </a>
             </div>
 
@@ -65,10 +65,16 @@
             </div>
         </div>
         <div class="volume-control-pane">
-            <div class="vol-mute">
-                <i class="fas fa-volume-mute"></i>
+            <div class="volume-controls">
+                <div class="vol-mute">
+                    <i class="fas fa-volume-mute"></i>
+                </div>
+                <div class="volume-slider-wrapper">
+                    <div class="volume-slider">
+                        <div class="vol-slider-bar"></div>
+                    </div>
+                </div>
             </div>
-            <div class="volume-slider">{SLIDER}</div>
         </div>
 
     </div>
