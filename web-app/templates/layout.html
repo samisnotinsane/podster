@@ -44,24 +44,6 @@
         <p>content block</p>
     {% endblock %}
 </div>
-<div id="footer">
-    {% block footer %}
-        <div class="footer-pane">
-            <div class="slogan">
-                <div class="slogan-top">
-                    <h5>Choose Podster. Choose to feed your curiosity.</h5>
-                    Follow us on social media:
-                    <a>Twitter</a> | <a>Instagram</a> | <a>Facebook</a>
-                </div>
-                <div class="slogan-bottom">
-                    <p>&copy; 2020 | Crafted by <a href="https://sameen.info/">Sameen</a>.</p>
-                </div>
-            </div>
-
-        </div>
-
-    {% endblock %}
-</div>
 <script type=text/javascript src="{{ url_for('static', filename='jquery-3.4.1.js') }}"></script>
 <script type=text/javascript>
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
