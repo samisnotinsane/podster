@@ -249,13 +249,14 @@ h2 {
 
 .player-seeker {
     width: 100%;
-    background-color: grey;
+    margin-top: 4px;
+    background-color: #eeeeee;
 }
 
 .player-seeker .seeker-bar {
     width: 1%;
-    height: 30px;
-    background-color: green;
+    height: 5px;
+    background-color: #4CAF50;
 }
 
 .volume-control-pane {
