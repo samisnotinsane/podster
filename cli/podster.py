@@ -54,7 +54,7 @@ def source(add, purge, view, ext, url, out, link):
 def store(create, view, purge):
     client = MongoClient(port=27017)
     db = client.podster
-    shows_collection = db.shows
+    shows_collection = db.maven
     if create:
         click.secho('CAUTION! ', fg='yellow', nl=False)
         click.echo('This will purge existing data in persistent storage. Continue (y/n)?')
