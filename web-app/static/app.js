@@ -1,20 +1,31 @@
 $(document).ready(function () {
-    // console.log("ready!");
-    $.getJSON('/api/podcasts', function (data) {
-        $.each(data, function (key, val) {
-            // console.log('key: ' + key);
-            $.each(val, function (idx, epi) {
-                // console.log('title: ' + epi.title);
-                // console.log('description: ' + epi.description);
-                $('.current-events-shows').append(
-                    '<div class="card">\n' +
-                        '<a href="/show-detail">' +
-                        // save bandwidth by not d/l-ing cover when debugging
-                        // '<img src=\" ' + epi.image_url + '\" height="125" width="125" >' +
-                         '</a>' +
-                    '</div>'
+
+    $.ajax({
+        url: '/api/podcasts',
+        cache: false,
+        success: function (result) {
+            let shows = result['podcasts'];
+
+            console.log(shows.length + ' recently added shows');
+
+            for (let i = 0; i < shows.length; i++) {
+                let coverId = 'cover-' + i;
+                $('.show-section').append(
+                    "<div class='show-grid-item'>" +
+                    "<a href='/show-detail" + '?title=' + shows[i]['title'] + "'>" +
+                    "<img id='" + coverId + "' " +
+                    "src='" + shows[i]['image_url'] + "' " +
+                    "alt='" + shows[i]['title'] + "' height='150' width='150'/>" +
+                    "</a>" +
+                    "</div>"
                 );
-            });
-        });
+            }
+
+        }
     });
+
+    $('#cover-1').click(function () {
+        console.log('click!');
+    });
+
 });

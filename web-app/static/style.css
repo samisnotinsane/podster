@@ -219,10 +219,11 @@ h2 {
 
 .recently-added-container .show-grid-item {
     display: flex;
-    padding: 0 2% 0 2%;
+    /*padding: 0 0% 0 0%;*/
+    margin: 0 1% 0 1%;
     height: 150px;
     width: 150px;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 /* ------------- */
