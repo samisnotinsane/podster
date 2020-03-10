@@ -2,6 +2,7 @@ from pymongo import MongoClient
 
 client = MongoClient(port=27017)
 db = client.podster
+collection = db.maven
 
 """
 Retrieves podcasts from MongoDB and returns them 
@@ -11,7 +12,7 @@ as a list.
 
 def get_podcast_dict():
     shows_list = list()
-    for show in db.shows.find():
+    for show in collection.find():
         shows_list.append(
             {
                 'title': show['title'],
@@ -23,7 +24,7 @@ def get_podcast_dict():
 
 
 def get_episode_dict(name=None):
-    episode_list = db.shows.find_one(
+    episode_list = collection.find_one(
         {'title': name},
         {'_id': 0, 'title': 0, 'description': 0, 'image_url': 0}
     )
