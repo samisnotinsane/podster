@@ -28,17 +28,22 @@ $(document).ready(function () {
     $.getJSON("/api/show/" + title, function ( json, status ) {
 
         if (status === 'success') {
-
-            console.log(json);
             $('#show-description').text(json.description);
             $('.show-meta').css({
                 'display': 'flex',
                 'flex-direction': 'column',
                 'width': '80%'
             });
+            console.log(json);
+            $('#episode-table').append(
+                '<tr>' +
+                '<td>' + json.episodes[0]['title'] + '</td>' +
+                '<td>' + json.episodes[0]['published'] + '</td>' +
+                '<td>' + json.episodes[0]['enclosure_length'] + '</td>' +
+                '</tr>'
+            )
         }
-    })
-
+    });
 
 });
 
