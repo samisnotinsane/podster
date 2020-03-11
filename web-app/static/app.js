@@ -25,7 +25,7 @@ $(document).ready(function () {
     });
 
     const title = $('.show-meta h3').text();
-    $.getJSON("/api/episodes/" + title, function ( json ) {
+    $.getJSON("/api/show/" + title, function ( json ) {
         console.log(json);
     })
 

@@ -22,6 +22,12 @@ def get_podcast_dict():
         )
     return shows_list
 
+def get_podcast(name=None):
+    podcast = collection.find_one(
+        {'title': name},
+        {'_id': 0}
+    )
+    return podcast
 
 def get_episode_dict(name=None):
     episode_list = collection.find_one(
