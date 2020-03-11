@@ -43,6 +43,4 @@ def show_episodes():
 @app.route('/show-detail')
 def show_detail():
     title = request.args.get('title', None)
-    episodes_list = data.get_episode_dict(title)['episodes']
-    app.logger.debug('Found {0} episodes for \'{1}\' in database'.format(len(episodes_list), title))
-    return render_template('show-detail.html', title=title, episodes=episodes_list)
+    return render_template('show-detail.html', title=title)

@@ -24,8 +24,11 @@ $(document).ready(function () {
         }
     });
 
-    $('#cover-1').click(function () {
-        console.log('click!');
-    });
+    const title = $('.show-meta h3').text();
+    $.getJSON("/api/episodes/" + title, function ( json ) {
+        console.log(json);
+    })
+
 
 });
+
