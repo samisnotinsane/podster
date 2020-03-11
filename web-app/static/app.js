@@ -25,8 +25,18 @@ $(document).ready(function () {
     });
 
     const title = $('.show-meta h3').text();
-    $.getJSON("/api/show/" + title, function ( json ) {
-        console.log(json);
+    $.getJSON("/api/show/" + title, function ( json, status ) {
+
+        if (status === 'success') {
+
+            console.log(json);
+            $('#show-description').text(json.description);
+            $('.show-meta').css({
+                'display': 'flex',
+                'flex-direction': 'column',
+                'width': '80%'
+            });
+        }
     })
 
 
