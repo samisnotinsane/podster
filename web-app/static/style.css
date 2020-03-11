@@ -66,7 +66,7 @@ h2 {
     display: flex;
     height: 580px;
     /*background-color: lightblue;*/
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 /* Left Pane */
@@ -159,8 +159,7 @@ h2 {
 
 /* Bottom Pane */
 .bottom-pane {
-    width: 80%;
-    /*border: 1px solid red;*/
+    width: 90%;
 }
 
 .up-next-title {
@@ -225,7 +224,6 @@ h2 {
 .player-top-level-pane {
     display: flex;
     justify-content: space-between;
-    border: 1px solid red;
 }
 
 .show-metadata-pane {
@@ -333,6 +331,14 @@ h2 {
     width: 100%;
     height:300px;
     overflow:scroll;
+}
+
+/* ------------- */
+
+.up-next-table {
+    display: flex;
+    overflow: scroll;
+    height: 200px;
 }
 
 /* ------------- */
