@@ -25,7 +25,7 @@ $(document).ready(function () {
     });
 
     const title = $('.show-meta h3').text();
-    $.getJSON("/api/show/" + title, function ( json, status ) {
+    $.getJSON("/api/show/" + title, function (json, status) {
 
         if (status === 'success') {
             $('#show-description').text(json.description);
@@ -35,13 +35,16 @@ $(document).ready(function () {
                 'width': '80%'
             });
             console.log(json);
-            $('#episode-table').append(
-                '<tr>' +
-                '<td>' + json.episodes[0]['title'] + '</td>' +
-                '<td>' + json.episodes[0]['published'] + '</td>' +
-                '<td>' + json.episodes[0]['enclosure_length'] + '</td>' +
-                '</tr>'
-            )
+
+            $.each(json.episodes, function (index, episode) {
+                $('#episode-table').append(
+                    '<tr>' +
+                    '<td>' + json.episodes[index]['title'] + '</td>' +
+                    '<td>' + json.episodes[index]['published'] + '</td>' +
+                    '<td>' + json.episodes[index]['enclosure_length'] + '</td>' +
+                    '</tr>'
+                );
+            });
         }
     });
 
