@@ -214,6 +214,8 @@ h2 {
     justify-content: space-between;
     align-items: center;
     height: 200px;
+    overflow: auto;
+    white-space: nowrap;
     /*border: 1px solid red;*/
 }
 
