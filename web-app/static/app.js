@@ -34,7 +34,6 @@ $(document).ready(function () {
                 'flex-direction': 'column',
                 'width': '80%'
             });
-            console.log(json);
 
             $.each(json.episodes, function (index, episode) {
                 $('#episode-table').append(
@@ -50,14 +49,12 @@ $(document).ready(function () {
 
     $.getJSON('/api/show/Podcast', function (json, status) {
         if (status === 'success') {
-            console.log(json);
-            console.log(json.episodes[0]['title']);
             $.each(json.episodes, function (index, episode) {
                 $('#up-next').append(
                     '<tr>' +
                     '<td>' + json.episodes[index]['title'] + '</td>' +
+                    '<td>' + json.title + '</td>' +
                     '<td>' + json.episodes[index]['published'] + '</td>' +
-                    '<td>' + json.episodes[index]['enclosure_length'] + '</td>' +
                     '</tr>'
                 );
             });
