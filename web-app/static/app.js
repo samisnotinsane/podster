@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $.ajax({
         url: '/api/podcasts',
         cache: false,
@@ -51,15 +50,30 @@ $(document).ready(function () {
         if (status === 'success') {
             $.each(json.episodes, function (index, episode) {
                 $('#up-next').append(
-                    '<tr>' +
-                    '<td>' + json.episodes[index]['title'] + '</td>' +
+                    '<tr class="up-next-episode">' +
+                    '<td>' + '<a href="' + json.episodes[index]['enclosure_url'] + '">' + json.episodes[index]['title'] + '</a>' + '</td>' +
                     '<td>' + json.title + '</td>' +
                     '<td>' + json.episodes[index]['published'] + '</td>' +
                     '</tr>'
                 );
             });
+
+            $('.up-next-episode').click(function () {
+                $('.player-controls-pane').append(
+                    '<audio controls>' +
+                    '<source id="player-source" type="audio/mpeg">' +
+                    '</audio>'
+                );
+
+                const link = $(this)
+                    .children()
+                    .find('a')
+                    .attr('href');
+                console.log(link);
+
+                $('#player-source').attr('src', link);
+            });
         }
     });
-
 });
 
