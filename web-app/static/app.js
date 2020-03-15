@@ -47,7 +47,7 @@ function showDuration(audio) {
         $('#player-duration').html(mins + ':' + secs);
         let progressWidth = 0;
         if(audio.currentTime > 0) {
-            progressWidth = Math.floor( (100 / audio.duration) * (audio.currentTime) );
+            progressWidth = ( (100 / audio.duration) * (audio.currentTime) );
         }
         $('.seeker-bar').css('width', progressWidth + '%');
     });
