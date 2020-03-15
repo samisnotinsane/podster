@@ -14,6 +14,29 @@ function initRecentlyAdded(container, items) {
 }
 
 
+function initPodcastDescr(container, description) {
+    $('#show-description').text(description);
+    container.css({
+        'display': 'flex',
+        'flex-direction': 'column',
+        'width': '80%'
+    });
+}
+
+
+function initPodcastEpisodes(container, episodes) {
+    $.each(episodes, function (index, episode) {
+        container.append(
+            '<tr>' +
+            '<td>' + episode['title'] + '</td>' +
+            '<td>' + episode['published'] + '</td>' +
+            '<td>' + episode['enclosure_length'] + '</td>' +
+            '</tr>'
+        );
+    });
+}
+
+
 $(document).ready(function () {
 
 
@@ -31,27 +54,9 @@ $(document).ready(function () {
 
     // Podcast episodes
     if (top.location.pathname === '/show-detail') {
-        const title = $('.show-meta h3').text();
-        $.getJSON("/api/podcast/" + title, function (json, status) {
-
-            if (status === 'success') {
-                $('#show-description').text(json.description);
-                $('.show-meta').css({
-                    'display': 'flex',
-                    'flex-direction': 'column',
-                    'width': '80%'
-                });
-
-                $.each(json.episodes, function (index, episode) {
-                    $('#episode-table').append(
-                        '<tr>' +
-                        '<td>' + json.episodes[index]['title'] + '</td>' +
-                        '<td>' + json.episodes[index]['published'] + '</td>' +
-                        '<td>' + json.episodes[index]['enclosure_length'] + '</td>' +
-                        '</tr>'
-                    );
-                });
-            }
+        $.getJSON("/api/podcast/" + $('.show-meta h3').text(), function (jsonResponse) {
+            initPodcastDescr($('.show-meta'), jsonResponse['description']);
+            initPodcastEpisodes($('#episode-table'), jsonResponse['episodes']);
         });
     }
 
