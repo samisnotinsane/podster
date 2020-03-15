@@ -62,8 +62,8 @@
                 <img src="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
             </div>
             <div class="name-artist-wrapper">
-                <div class="show-name">{NAME}</div>
-                <div class="show-artist">{ARTIST}</div>
+                <span id="current-name" class="show-name">{NAME}</span>
+                <span id="current-podcast" class="show-artist">{ARTIST}</span>
             </div>
         </div>
         <div class="player-controls-pane">
@@ -72,7 +72,7 @@
                     <i class="fas fa-backward"></i>
                 </div>
                 <div class="player-button">
-                    <i class="fas fa-play"></i>
+                    <i id="player-play" class="fas fa-play"></i>
                 </div>
                 <div class="player-button">
                     <i class="fas fa-forward"></i>

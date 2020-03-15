@@ -37,28 +37,42 @@ function initPodcastEpisodes(container, episodes) {
 }
 
 
-$(document).ready(function () {
+function initPlayer(title, episode) {
+    $('#current-name').text(episode['title']);
+    $('#current-podcast').text(title);
 
-
-    // Recently Added
-    $.getJSON('/api/podcasts', function (jsonResponse) {
-        initRecentlyAdded($('.show-section'), jsonResponse['podcasts']);
+    $('#player-play').click(function () {
+        let audio = new Audio(episode['enclosure_url']);
+        audio.play();
     });
+}
 
 
-    // Up Next
-    $('.up-next-container').append(
-        '<br><p>You don\'t have any episodes in your queue.</p>'
-    );
+    $(document).ready(function () {
 
 
-    // Podcast episodes
-    if (top.location.pathname === '/show-detail') {
-        $.getJSON("/api/podcast/" + $('.show-meta h3').text(), function (jsonResponse) {
-            initPodcastDescr($('.show-meta'), jsonResponse['description']);
-            initPodcastEpisodes($('#episode-table'), jsonResponse['episodes']);
+        // Recently Added
+        $.getJSON('/api/podcasts', function (jsonResponse) {
+            initRecentlyAdded($('.show-section'), jsonResponse['podcasts']);
         });
-    }
 
-});
+
+        // Up Next
+        $('.up-next-container').append(
+            '<br><p>You don\'t have any episodes in your queue.</p>'
+        );
+
+
+        // Podcast episodes
+        if (top.location.pathname === '/show-detail') {
+            $.getJSON("/api/podcast/" + $('.show-meta h3').text(), function (jsonResponse) {
+                initPodcastDescr($('.show-meta'), jsonResponse['description']);
+                initPodcastEpisodes($('#episode-table'), jsonResponse['episodes']);
+
+                // Play most recent episode
+                initPlayer(jsonResponse.title, jsonResponse['episodes'][0]);
+            });
+        }
+
+    });
 
