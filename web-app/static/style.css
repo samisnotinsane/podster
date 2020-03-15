@@ -277,7 +277,7 @@ h2 {
 }
 
 .player-seeker .seeker-bar {
-    width: 1%;
+    width: 0;
     height: 5px;
     background-color: #4CAF50;
 }
@@ -339,6 +339,10 @@ h2 {
     display: none;
     overflow: scroll;
     height: 200px;
+}
+
+#player-pause {
+    display: none;
 }
 
 /* ------------- */
