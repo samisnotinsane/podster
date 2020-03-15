@@ -46,22 +46,24 @@ function showDuration(audio) {
         }
         $('#player-duration').html(mins + ':' + secs);
         let progressWidth = 0;
-        if(audio.currentTime > 0) {
-            progressWidth = ( (100 / audio.duration) * (audio.currentTime) );
+        if (audio.currentTime > 0) {
+            progressWidth = ((100 / audio.duration) * (audio.currentTime));
         }
         $('.seeker-bar').css('width', progressWidth + '%');
     });
 }
 
 
-function initPlayer(title, episode) {
+function initPlayer(title, episodes) {
+    let episodeNumber = 0; // 0 is most recent
     let audio;
-    $('#current-name').text(episode['title']);
+    $('#current-name').text(episodes[episodeNumber]['title']);
     $('#current-podcast').text(title);
+
 
     // Play button
     $('#player-play').click(function () {
-        audio = new Audio(episode['enclosure_url']);
+        audio = new Audio(episodes[episodeNumber]['enclosure_url']);
         audio.play();
         // hide play button and show pause once playing
         $('#player-play').hide();
@@ -69,12 +71,25 @@ function initPlayer(title, episode) {
         showDuration(audio);
     });
 
+
     // Pause button
     $('#player-pause').click(function () {
         audio.pause();
         // hide pause button and show play once paused
         $('#player-pause').hide();
         $('#player-play').show();
+    });
+
+
+    // Next button
+    $('#player-next').click(function () {
+        alert('Not yet implemented!');
+    });
+
+
+    // Prev button
+    $('#player-prev').click(function () {
+        alert('Not yet implemented!');
     });
 }
 
@@ -101,7 +116,7 @@ $(document).ready(function () {
             initPodcastEpisodes($('#episode-table'), jsonResponse['episodes']);
 
             // Play most recent episode
-            initPlayer(jsonResponse.title, jsonResponse['episodes'][0]);
+            initPlayer(jsonResponse.title, jsonResponse['episodes']);
         });
     }
 
