@@ -19,7 +19,8 @@ def get_podcasts():
     podcasts = data.get_podcast_dict()
     return jsonify({'podcasts': podcasts})
 
-@app.route('/api/show/<podcast_name>')
+
+@app.route('/api/podcast/<podcast_name>')
 def get_show(podcast_name=None):
     show = data.get_podcast(podcast_name)
     return jsonify(show)
