@@ -9,6 +9,7 @@ function initRecentlyAdded(container, items) {
             "</div>"
         );
     });
+    $('.show-grid-item').css('cursor', 'pointer');
 }
 
 
@@ -18,19 +19,6 @@ function initPodcastDescr(container, description) {
         'display': 'flex',
         'flex-direction': 'column',
         'width': '80%'
-    });
-}
-
-
-function initPodcastEpisodes(container, episodes) {
-    $.each(episodes, function (index, episode) {
-        container.append(
-            '<tr>' +
-            '<td>' + episode['title'] + '</td>' +
-            '<td>' + episode['published'] + '</td>' +
-            '<td>' + episode['enclosure_length'] + '</td>' +
-            '</tr>'
-        );
     });
 }
 
@@ -52,16 +40,29 @@ function showDuration(audio) {
 }
 
 
-function initPlayer(title, episodes) {
-    let episodeNumber = 0; // 0 is most recent
+function initPodcastEpisodes(container, episodes) {
+    $.each(episodes, function (index, episode) {
+        container.append(
+            '<tr class="episode-rows" data-name="' + episode['title'] + '">' +
+            '<td>' + episode['title'] + '</td>' +
+            '<td>' + episode['published'] + '</td>' +
+            '<td>' + episode['enclosure_length'] + '</td>' +
+            '</tr>'
+        );
+    });
+    $('.episode-rows').css('cursor', 'pointer');
+}
+
+
+function initPlayer(title, episode) {
     let audio;
-    $('#current-name').text(episodes[episodeNumber]['title']);
+    $('#current-name').text(episode['title']);
     $('#current-podcast').text(title);
 
 
     // Play button
     $('#player-play').click(function () {
-        audio = new Audio(episodes[episodeNumber]['enclosure_url']);
+        audio = new Audio(episode['enclosure_url']);
         audio.play();
         // hide play button and show pause once playing
         $('#player-play').hide();
@@ -119,14 +120,24 @@ function initShowMeta(showName, jsonResponse) {
     $('#show-cover').attr('src', jsonResponse['image_url']);
 }
 
+function getEpisodeByName(targetName, episodeList) {
+    for (let i = 0; i < episodeList.length; i++) {
+        let name = episodeList[i]['title'];
+        if (name === targetName) {
+            return episodeList[i];
+        }
+    }
+    return null;
+}
+
 $(document).ready(function () {
 
     // CSS debugging
-    $('.top-level-pane').css('border', '6px solid red');
-    $('.left-pane').css('border', '1px solid red');
-    $('.right-pane').css('border', '1px solid red');
+    // $('.top-level-pane').css('border', '6px solid red');
+    // $('.left-pane').css('border', '1px solid red');
+    // $('.right-pane').css('border', '1px solid red');
     // $('.middle-pane').css('border', '1px solid red');
-    $('.bottom-pane').css('border', '1px solid red');
+    // $('.bottom-pane').css('border', '1px solid red');
     // $('.show-meta').css('border', '1px solid red');
     // $('.show-meta-text').css('border', '1px solid red');
     // $('.show-meta-image').css('border', '1px solid red');
@@ -144,16 +155,19 @@ $(document).ready(function () {
             // AJAX request to get show episodes
             const showName = $(this).data('name');
             $.getJSON('/api/podcast/' + showName, function (jsonResponse) {
-                console.log(jsonResponse);
-
                 // Load show description and cover
                 initShowMeta(showName, jsonResponse);
 
                 // Populate episodes in table
                 initPodcastEpisodes($('#episode-table'), jsonResponse['episodes']);
 
-                // TODO: Event handler: click episode
-
+                // Event handler: click on episode row
+                $("#episode-table").delegate("tr.episode-rows", "click", function () {
+                    let episodeName = $(this).data('name');
+                    let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
+                    console.log(episode);
+                    initPlayer(showName, episode);
+                });
             });
         });
     });
