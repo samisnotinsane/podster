@@ -2,15 +2,13 @@ function initRecentlyAdded(container, items) {
     $.each(items, function (index, item) {
         let coverId = 'cover-' + index;
         container.append(
-            "<div class='show-grid-item'>" +
-            "<a href='/show-detail" + '?title=' + item['title'] + "'>" +
+            "<div class='show-grid-item' data-name='" + item['title'] + "'>" +
             "<img id='" + coverId + "' " +
             "src='" + item['image_url'] + "' " +
             "alt='" + item['title'] + "' height='150' width='150'/>" +
-            "</a>" +
             "</div>"
         );
-    })
+    });
 }
 
 
@@ -94,14 +92,71 @@ function initPlayer(title, episodes) {
 }
 
 
+function initShowMetaStyle() {
+    // Hide recently added covers
+    $('.recently-added-container').css('display', 'none');
+
+    // Left align title and description inside middle pane
+    $('.middle-pane').css('justify-content', 'flex-start');
+
+    // Position title, description to left and cover to right inside middle pane
+    let showMetaElement = $('.show-meta');
+    showMetaElement.css('display', 'flex');
+    showMetaElement.css('margin-left', '5%');
+    showMetaElement.css('height', '200px');
+    $('.show-meta-text').css('width', '70%');
+    $('.show-meta-image').css('width', '25%');
+
+    // Left align episode list inside bottom pane
+    let episodeTableWrapper = $('.episode-table-wrapper');
+    episodeTableWrapper.css('display', 'flex');
+    episodeTableWrapper.css('margin-left', '5%');
+}
+
+function initShowMeta(showName, jsonResponse) {
+    $('#show-title').text(showName);
+    $('#show-description').text(jsonResponse['description']);
+    $('#show-cover').attr('src', jsonResponse['image_url']);
+}
+
 $(document).ready(function () {
 
+    // CSS debugging
+    $('.top-level-pane').css('border', '6px solid red');
+    $('.left-pane').css('border', '1px solid red');
+    $('.right-pane').css('border', '1px solid red');
+    // $('.middle-pane').css('border', '1px solid red');
+    $('.bottom-pane').css('border', '1px solid red');
+    // $('.show-meta').css('border', '1px solid red');
+    // $('.show-meta-text').css('border', '1px solid red');
+    // $('.show-meta-image').css('border', '1px solid red');
 
     // Recently Added
     $.getJSON('/api/podcasts', function (jsonResponse) {
         initRecentlyAdded($('.show-section'), jsonResponse['podcasts']);
-    });
 
+        // Event handler: click recently added cover
+        $('.show-grid-item').click(function () {
+            console.log($(this).data());
+
+            initShowMetaStyle();
+
+            // AJAX request to get show episodes
+            const showName = $(this).data('name');
+            $.getJSON('/api/podcast/' + showName, function (jsonResponse) {
+                console.log(jsonResponse);
+
+                // Load show description and cover
+                initShowMeta(showName, jsonResponse);
+
+                // Populate episodes in table
+                initPodcastEpisodes($('#episode-table'), jsonResponse['episodes']);
+
+                // TODO: Event handler: click episode
+
+            });
+        });
+    });
 
     // Up Next
     $('.up-next-container').append(
