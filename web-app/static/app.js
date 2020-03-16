@@ -142,6 +142,22 @@ $(document).ready(function () {
     // $('.show-meta-text').css('border', '1px solid red');
     // $('.show-meta-image').css('border', '1px solid red');
 
+    // Event handler: click 'Explore'
+    $('#explore-button').click(function () {
+        // Hide show metadata and episode table
+        $('.show-meta').css('display', 'none');
+        $('.episode-table-wrapper').css('display', 'none');
+
+        // Show recently added covers
+        $('.recently-added-container').css('display', 'flex');
+    });
+
+    // Event handler: click 'Favorites'
+    $('#favorites-button').click(function () {
+        alert('Not yet implemented!');
+    });
+
+
     // Recently Added
     $.getJSON('/api/podcasts', function (jsonResponse) {
         initRecentlyAdded($('.show-section'), jsonResponse['podcasts']);
