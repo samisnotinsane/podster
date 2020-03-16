@@ -144,6 +144,9 @@ $(document).ready(function () {
 
     // Event handler: click 'Explore'
     $('#explore-button').click(function () {
+        // Clear rows from episode table
+        $('#episode-table tr.episode-rows').remove();
+
         // Hide show metadata and episode table
         $('.show-meta').css('display', 'none');
         $('.episode-table-wrapper').css('display', 'none');
