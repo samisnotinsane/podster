@@ -227,6 +227,12 @@ h2 {
     justify-content: space-between;
 }
 
+.show-meta {
+    display: none;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .show-meta-image {
     display: flex;
     flex-direction: column;
