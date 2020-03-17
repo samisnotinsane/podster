@@ -218,6 +218,12 @@ h2 {
     /*border: 1px solid red;*/
 }
 
+.show-meta {
+    display: none;
+    justify-content: space-between;
+    width: 100%;
+}
+
 /* ------------- */
 
 /* Player Pane */
@@ -227,23 +233,28 @@ h2 {
     justify-content: space-between;
 }
 
-.show-meta {
-    display: none;
-    justify-content: space-between;
-    width: 100%;
+.show-metadata-pane {
+    display: flex;
+    position: relative;
+    top: 5px;
+    left: 5px;
+
+    width: 400px;
+    height: 90%;
+}
+
+.show-cover {
+    padding: 15px;
+    /*border: 1px solid red;*/
 }
 
 .show-meta-image {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
 
-.show-cover {
-    padding-top: 6px;
-    /*border: 1px solid red;*/
-}
+
 
 .show-cover img {
     height: 52px;
