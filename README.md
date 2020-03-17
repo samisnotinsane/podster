@@ -7,4 +7,4 @@ A podcast player with web and cli interface.
 
 ### Screenshots
 
-![Homepage](/screenshots/podster-home.png?raw=true "Podster homepage showing podcast covers")
+![Homepage](/screenshots/podster-0.1.png?raw=true "Podster homepage showing podcast covers")
