@@ -266,36 +266,59 @@ h2 {
 .show-cover img {
     height: 52px;
     width: 52px;
-    /*border: 1px solid red;*/
 }
 
 .player-controls-pane {
-    width: 40%;
-    margin-top: 12px;
-    margin-bottom: 6px;
-    /*border: 1px solid red;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    position: relative;
+    top: 5px;
+    left: -40px;
+
+    width: 600px;
+    height: 90%;
 }
 
 .player-buttons {
     display: flex;
     justify-content: center;
-    /*border: 1px solid red;*/
+
+    position: relative;
+    top: 5px;
+
+    height: 45px;
+    padding-top: 15px;
 }
 
 .player-button {
-    margin-left: 8px;
+
+}
+
+.player-seeker-elapsed-container {
+    display: flex;
+    justify-content: center;
 }
 
 .player-seeker {
-    width: 100%;
-    margin-top: 12px;
+    position: relative;
+    top: 10px;
+
+    height: 5px;
+    width: 50%;
+
+    margin-right: 10px;
+    border-radius: 10px;
+
     background-color: #eeeeee;
-    /*border: 1px solid red;*/
 }
 
 .player-seeker .seeker-bar {
-    width: 0;
+    width: 100%; /* begin from 0 */
     height: 5px;
+
+    border-radius: 10px;
     background-color: #4CAF50;
 }
 
@@ -356,8 +379,17 @@ h2 {
     height: 200px;
 }
 
+#player-play {
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
 #player-pause {
     display: none;
+    height: 30px;
+    width: 30px;
 }
 
 /* ------------- */
