@@ -223,13 +223,8 @@ h2 {
 /* Player Pane */
 .player-top-level-pane {
     display: flex;
+    height: 100px;
     justify-content: space-between;
-}
-
-.show-meta {
-    display: none;
-    justify-content: space-between;
-    width: 100%;
 }
 
 .show-meta-image {
