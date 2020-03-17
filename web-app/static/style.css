@@ -229,8 +229,9 @@ h2 {
 /* Player Pane */
 .player-top-level-pane {
     display: flex;
-    height: 100px;
+    height: 120px;
     justify-content: space-between;
+    background-color: #CFFFED;
 }
 
 .show-metadata-pane {
@@ -315,11 +316,11 @@ h2 {
 }
 
 .player-seeker .seeker-bar {
-    width: 100%; /* begin from 0 */
+    width: 0; /* begin from 0 */
     height: 5px;
 
     border-radius: 10px;
-    background-color: #4CAF50;
+    background-color: #418068;
 }
 
 .volume-control-pane {
@@ -352,14 +353,14 @@ h2 {
     display: flex;
     /*width: 100%;*/
     height: 5px;
-    background-color: #4CAF50;
+    background-color: #418068;
     /*border: 1px solid red;*/
 }
 
 .vol-slider-bar {
     width: 1%;
     height: 5px;
-    background-color: #4CAF50;
+    background-color: whitesmoke;
 }
 
 /* ------------- */
@@ -379,6 +380,18 @@ h2 {
     height: 200px;
 }
 
+.show-name {
+    color: #418068;
+}
+
+.show-artist {
+    color: #418068;
+}
+
+#player-duration {
+    color: #418068;
+}
+
 #player-play {
     height: 30px;
     width: 30px;
@@ -390,6 +403,26 @@ h2 {
     display: none;
     height: 30px;
     width: 30px;
+}
+
+.fa-play {
+    color: #418068;
+}
+
+.fa-pause {
+    color: #418068;
+}
+
+.fa-backward {
+    color: #418068;
+}
+
+.fa-forward {
+    color: #418068;
+}
+
+.fa-volume-mute {
+    color: #418068;
 }
 
 /* ------------- */

@@ -66,8 +66,11 @@ function initPlayer(title, episode) {
         audio.play();
         // hide play button and show pause once playing
         $('#player-play').hide();
-        $('#player-pause').show();
+        let pauseButton = $('#player-pause');
+        pauseButton.show();
         showDuration(audio);
+        pauseButton.css('margin-left', '10px');
+        pauseButton.css('margin-right', '10px');
     });
 
 
