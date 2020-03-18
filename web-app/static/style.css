@@ -445,4 +445,9 @@ h2 {
     color: #418068;
 }
 
+.player-button:hover,
+.player-seeker:hover {
+    cursor: pointer;
+}
+
 /* ------------- */

@@ -83,7 +83,7 @@ function initPlayer(title, episode) {
         pauseButton.css('margin-left', '10px');
         pauseButton.css('margin-right', '10px');
 
-    }).catch(function (error) {
+    }).catch(function () {
         console.log('The play() Promise rejected!');
         console.log('Use the Play button instead.');
         playClickHandler(audio);
