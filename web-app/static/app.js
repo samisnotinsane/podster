@@ -54,16 +54,9 @@ function initPodcastEpisodes(container, episodes) {
 }
 
 
-function initPlayer(title, episode) {
-    let audio;
-    $('#current-name').text(episode['title']);
-    $('#current-podcast').text(title);
-
-
+function playClickHandler(audio) {
     // Play button
     $('#player-play').click(function () {
-        audio = new Audio(episode['enclosure_url']);
-        audio.play();
         // hide play button and show pause once playing
         $('#player-play').hide();
         let pauseButton = $('#player-pause');
@@ -72,7 +65,32 @@ function initPlayer(title, episode) {
         pauseButton.css('margin-left', '10px');
         pauseButton.css('margin-right', '10px');
     });
+}
 
+function initPlayer(title, episode) {
+    $('#current-name').text(episode['title']);
+    $('#current-podcast').text(title);
+
+    let audio;
+    audio = new Audio(episode['enclosure_url']);
+
+    audio.play().then(function () {
+        // hide play button and show pause once playing
+        $('#player-play').hide();
+        let pauseButton = $('#player-pause');
+        pauseButton.show();
+        showDuration(audio);
+        pauseButton.css('margin-left', '10px');
+        pauseButton.css('margin-right', '10px');
+
+    }).catch(function (error) {
+        console.log('The play() Promise rejected!');
+        console.log('Use the Play button instead.');
+        playClickHandler(audio);
+    });
+
+    // Play button
+    playClickHandler(audio);
 
     // Pause button
     $('#player-pause').click(function () {
@@ -173,6 +191,8 @@ $(document).ready(function () {
             console.log($(this).data());
 
             initShowMetaStyle();
+            // Display research pane
+            $('.research-pane').css('display', 'flex');
 
             // AJAX request to get show episodes
             const showName = $(this).data('name');
@@ -189,6 +209,13 @@ $(document).ready(function () {
                     let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
                     console.log(episode);
                     initPlayer(showName, episode);
+                    let episodeDesc = episode['description'];
+                    let episodeDescElement = $('#research-desc-data');
+                    if (episodeDesc.length === 0) {
+                        episodeDescElement.html('No data.');
+                    } else {
+                        episodeDescElement.html(episodeDesc);
+                    }
                 });
             });
         });
