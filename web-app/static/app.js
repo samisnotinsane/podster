@@ -58,12 +58,8 @@ function initPlayer(title, episode) {
     let audio;
     $('#current-name').text(episode['title']);
     $('#current-podcast').text(title);
-
-
-    // Play button
-    $('#player-play').click(function () {
-        audio = new Audio(episode['enclosure_url']);
-        audio.play();
+    audio = new Audio(episode['enclosure_url']);
+    audio.play().then(function () {
         // hide play button and show pause once playing
         $('#player-play').hide();
         let pauseButton = $('#player-pause');
@@ -71,6 +67,19 @@ function initPlayer(title, episode) {
         showDuration(audio);
         pauseButton.css('margin-left', '10px');
         pauseButton.css('margin-right', '10px');
+    }).catch(function (error) {
+        console.log('The play() Promise rejected!');
+        console.log('Use the Play button instead.');
+        // Play button
+        $('#player-play').click(function () {
+            // hide play button and show pause once playing
+            $('#player-play').hide();
+            let pauseButton = $('#player-pause');
+            pauseButton.show();
+            showDuration(audio);
+            pauseButton.css('margin-left', '10px');
+            pauseButton.css('margin-right', '10px');
+        });
     });
 
 
@@ -93,6 +102,8 @@ function initPlayer(title, episode) {
     $('#player-prev').click(function () {
         alert('Not yet implemented!');
     });
+
+    return audio;
 }
 
 
