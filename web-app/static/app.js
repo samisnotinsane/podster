@@ -213,6 +213,13 @@ $(document).ready(function () {
                     let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
                     console.log(episode);
                     initPlayer(showName, episode);
+                    let episodeDesc = episode['description'];
+                    let episodeDescElement = $('#research-desc-data');
+                    if (episodeDesc.length === 0) {
+                        episodeDescElement.html('No data.');
+                    } else {
+                        episodeDescElement.html(episodeDesc);
+                    }
                 });
             });
         });
