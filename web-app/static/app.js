@@ -83,8 +83,6 @@ function initPlayer(title, episode) {
         pauseButton.css('margin-left', '10px');
         pauseButton.css('margin-right', '10px');
 
-        // Display show notes (description) in right-pane
-        $('');
     }).catch(function (error) {
         console.log('The play() Promise rejected!');
         console.log('Use the Play button instead.');
@@ -113,8 +111,6 @@ function initPlayer(title, episode) {
     $('#player-prev').click(function () {
         alert('Not yet implemented!');
     });
-
-    return audio;
 }
 
 
