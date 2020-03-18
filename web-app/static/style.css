@@ -114,7 +114,6 @@ h2 {
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    /*border: 1px solid red;*/
 }
 
 .top-pane .search {
@@ -145,7 +144,7 @@ h2 {
     margin-bottom: 25px;
     padding-left: 10px;
     color: #444444;
-    /*border: 1px solid red;*/
+    cursor: pointer;
 }
 
 /* Middle Pane */
