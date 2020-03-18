@@ -68,11 +68,11 @@ function playClickHandler(audio) {
 }
 
 function initPlayer(title, episode) {
-    let audio;
     $('#current-name').text(episode['title']);
     $('#current-podcast').text(title);
-    audio = new Audio(episode['enclosure_url']);
 
+    let audio;
+    audio = new Audio(episode['enclosure_url']);
 
     audio.play().then(function () {
         // hide play button and show pause once playing
@@ -82,6 +82,9 @@ function initPlayer(title, episode) {
         showDuration(audio);
         pauseButton.css('margin-left', '10px');
         pauseButton.css('margin-right', '10px');
+
+        // Display show notes (description) in right-pane
+        $('');
     }).catch(function (error) {
         console.log('The play() Promise rejected!');
         console.log('Use the Play button instead.');
@@ -192,6 +195,8 @@ $(document).ready(function () {
             console.log($(this).data());
 
             initShowMetaStyle();
+            // Display research pane
+            $('.research-pane').css('display', 'flex');
 
             // AJAX request to get show episodes
             const showName = $(this).data('name');

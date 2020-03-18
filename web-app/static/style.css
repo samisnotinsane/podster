@@ -165,8 +165,36 @@ h2 {
 .right-pane {
     display: flex;
     width: 20%;
-    border: 1px solid red;
 }
+
+/* Research Pane */
+
+.research-pane {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#research-pane-title {
+    background-color: #eeeeee;
+    color: #444444;
+    font-weight: bold;
+    font-size: x-large;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.research-body-desc {
+    padding: 12px;
+    border-bottom: 30px solid #eeeeee;
+}
+
+.research-body-analysis {
+    padding: 12px;
+}
+
+/* ------------- */
 
 /* Recently Added */
 .recently-added-container {
