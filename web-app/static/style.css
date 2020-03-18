@@ -187,10 +187,14 @@ h2 {
 .research-body-desc {
     padding: 12px;
     border-bottom: 30px solid #eeeeee;
+    height: 250px;
+    overflow:scroll;
 }
 
 .research-body-analysis {
     padding: 12px;
+    height: 250px;
+    overflow:scroll;
 }
 
 /* ------------- */
