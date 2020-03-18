@@ -161,11 +161,6 @@ h2 {
     width: 100%;
 }
 
-.up-next-title {
-    font-weight: bold;
-    font-size: x-large;
-}
-
 /* Right Pane */
 .right-pane {
     display: flex;
@@ -373,12 +368,6 @@ h2 {
 }
 
 /* ------------- */
-
-.up-next-table {
-    display: none;
-    overflow: scroll;
-    height: 200px;
-}
 
 .show-name {
     color: #418068;
