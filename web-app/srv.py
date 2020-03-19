@@ -3,8 +3,8 @@
 from flask import Flask, render_template, jsonify, request
 import data
 
-
 app = Flask(__name__, template_folder='templates')
+
 
 @app.route('/')
 def index():
