@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from pymongo import MongoClient
 
 client = MongoClient(port=27017)
