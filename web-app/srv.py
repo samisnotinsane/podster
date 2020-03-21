@@ -54,4 +54,4 @@ def show_detail():
     return render_template('show-detail.html', title=title)
 
 
-app.run(host="0.0.0.0")
+app.run(host="0.0.0.0", debug=True)

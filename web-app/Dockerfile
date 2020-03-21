@@ -9,5 +9,3 @@ COPY *.py /app/
 COPY static /app/static
 COPY templates /app/templates
 RUN chmod a+x *.py
-
-CMD ["./srv.py"]
