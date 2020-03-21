@@ -1,7 +1,9 @@
+#!/usr/bin/env python
+
 from flask import Flask, render_template, jsonify, request
 import data
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 
 @app.route('/')
@@ -50,3 +52,6 @@ def show_episodes():
 def show_detail():
     title = request.args.get('title', None)
     return render_template('show-detail.html', title=title)
+
+
+app.run(host="0.0.0.0", debug=True)

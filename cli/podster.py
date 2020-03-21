@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 import sys
 import time
@@ -52,15 +54,21 @@ def source(add, purge, view, ext, url, out, link):
 @click.option('--view', is_flag=True, help='View feed data in persistent store.')
 @click.option('--purge', is_flag=True, help='Delete feed data from persistent store.')
 def store(create, view, purge):
-    client = MongoClient(port=27017)
+    client = MongoClient('mongodb://datastore:27017')
+    dblist = client.list_database_names()
+    if "podster" in dblist:
+        print("podster database already exists.")
     db = client.podster
     shows_collection = db.maven
     if create:
         click.secho('CAUTION! ', fg='yellow', nl=False)
-        click.echo('This will purge existing data in persistent storage. Continue (y/n)?')
-        c = click.getchar()
+        click.echo('Purging existing data in persistent storage.')
+        c = 'y'
         if c == 'y':
-            shows_collection.delete_many({})
+            dblist = client.list_database_names()
+            if "podster" in dblist:
+                shows_collection.delete_many({})
+                print("Purging existing data...")
             click.echo('Creating persistent store with cache data...', nl=False)
             with open('URL_CACHE', 'r') as reader:
                 for line in reader:
@@ -99,8 +107,8 @@ def store(create, view, purge):
             click.secho(str(show), fg='blue')
     if purge:
         click.secho('WARNING! ', fg='red', nl=False)
-        click.echo('This will permanently remove all cache data. Continue [y/n]?')
-        c = click.getchar()
+        click.echo('Permanently removing all cache data.')
+        c = 'y'
         if c == 'y':
             click.echo('Purging persistent storage data...', nl=False)
             shows_collection.drop()
