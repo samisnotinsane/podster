@@ -54,63 +54,61 @@ function initPodcastEpisodes(container, episodes) {
 }
 
 
-function playClickHandler(audio) {
-    // Play button
-    $('#player-play').click(function () {
-        // hide play button and show pause once playing
-        $('#player-play').hide();
-        let pauseButton = $('#player-pause');
-        pauseButton.show();
-        showDuration(audio);
-        pauseButton.css('margin-left', '10px');
-        pauseButton.css('margin-right', '10px');
-    });
-}
-
 function initPlayer(title, episode) {
     $('#current-name').text(episode['title']);
     $('#current-podcast').text(title);
 
+    let audioSrc = episode['enclosure_url'];
+
+    let playButton = $('#player-play');
+    let pauseButton = $('#player-pause');
+    let prevButton = $('#player-prev');
+    let nextButton = $('#player-next');
+
     let audio;
-    audio = new Audio(episode['enclosure_url']);
+    let source;
+    audio = $('#player-audio')[0];
+    source = $('#audio-source')[0];
 
-    audio.play().then(function () {
-        // hide play button and show pause once playing
-        $('#player-play').hide();
-        let pauseButton = $('#player-pause');
-        pauseButton.show();
-        showDuration(audio);
-        pauseButton.css('margin-left', '10px');
-        pauseButton.css('margin-right', '10px');
+    function playAudio() {
+        if (source.src.length === 0) {
+            source.src = audioSrc;
+        }
 
-    }).catch(function () {
-        console.log('The play() Promise rejected!');
-        console.log('Use the Play button instead.');
-        playClickHandler(audio);
-    });
+        // Resume if already started playing
+        if (audio.paused === true) {
+            audio.play().then(function () {
+                // hide play button and show pause once playing
+                playButton.hide();
+                pauseButton.show();
+                showDuration(audio);
+            }).catch(function () {
+                console.log('The play() Promise rejected! Use the Play button instead.');
+            });
+        }
 
-    // Play button
-    playClickHandler(audio);
+    }
 
-    // Pause button
-    $('#player-pause').click(function () {
+    function pauseAudio() {
         audio.pause();
         // hide pause button and show play once paused
-        $('#player-pause').hide();
-        $('#player-play').show();
-    });
+        pauseButton.hide();
+        playButton.show();
+    }
 
-
-    // Next button
-    $('#player-next').click(function () {
+    function prevAudio() {
         alert('Not yet implemented!');
-    });
+    }
 
-
-    // Prev button
-    $('#player-prev').click(function () {
+    function nextAudio() {
         alert('Not yet implemented!');
-    });
+    }
+
+    // Register event handlers
+    playButton.click(playAudio);
+    pauseButton.click(pauseAudio);
+    prevButton.click(prevAudio);
+    nextButton.click(nextAudio);
 }
 
 
