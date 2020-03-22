@@ -54,7 +54,16 @@ function initPodcastEpisodes(container, episodes) {
 }
 
 
+function initCover() {
+    let playerCoverContainer = $('.show-cover');
+    playerCoverContainer.css('display', 'flex');
+    let playercover = $('.show-cover img:first-child');
+    let showCover = $('#show-cover').attr('src');
+    playercover.attr('src', showCover);
+}
+
 function initPlayer(title, episode) {
+    initCover();
     $('#current-name').text(episode['title']);
     $('#current-podcast').text(title);
 
