@@ -31,7 +31,7 @@ podster_datastore_1   docker-entrypoint.sh mongod      Up       0.0.0.0:27017->2
 podster_web_1         bash -c python srv.py            Up       0.0.0.0:5000->5000/tcp
 ````
 
-Currently, only Apple Safari is supported. Please open `http://0.0.0.0:5000` to view.
+Currently, only Apple Safari is supported. Please open [http://0.0.0.0:5000](http://0.0.0.0:5000) to view.
 
 #### Shutdown
 To take down podster, run `docker-compose down`. 
