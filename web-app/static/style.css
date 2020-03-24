@@ -323,32 +323,6 @@ h2 {
 
 }
 
-.player-seeker-elapsed-container {
-    display: flex;
-    justify-content: center;
-}
-
-.player-seeker {
-    position: relative;
-    top: 10px;
-
-    height: 5px;
-    width: 50%;
-
-    margin-right: 10px;
-    border-radius: 10px;
-
-    background-color: #eeeeee;
-}
-
-.player-seeker .seeker-bar {
-    width: 0; /* begin from 0 */
-    height: 5px;
-
-    border-radius: 10px;
-    background-color: #418068;
-}
-
 .volume-control-pane {
     display: flex;
     flex-direction: column;
@@ -412,11 +386,7 @@ h2 {
     color: #418068;
 }
 
-#player-duration {
-    color: #418068;
-}
-
-#player-play {
+#player-play-pause {
     height: 30px;
     width: 30px;
     margin-left: 10px;
@@ -434,27 +404,57 @@ h2 {
 
 .fa-play {
     color: #418068;
+    cursor: pointer;
 }
 
 .fa-pause {
     color: #418068;
+    cursor: pointer;
 }
 
 .fa-backward {
     color: #418068;
+    cursor: pointer;
 }
 
 .fa-forward {
     color: #418068;
+    cursor: pointer;
 }
 
 .fa-volume-mute {
     color: #418068;
-}
-
-.player-button:hover,
-.player-seeker:hover {
     cursor: pointer;
 }
+
+.player-seek-bar {
+    display: flex;
+    cursor: pointer;
+
+    border-radius: 50px;
+    background-color: #eeeeee;
+
+    height: 5px;
+    width: 100%;
+}
+
+.player-seek-bar-fill {
+    height: 5px;
+    background-color: #418068;
+}
+
+.player-seek-bar-handle {
+    width: 8px;
+    height: 8px;
+    background-color: #418068;
+    border-radius: 50%;
+    margin-left: -5px;
+    transform: scale(2);
+}
+
+/* TODO: change colour of active row */
+/*tr .active td:first-child {*/
+/*    color: #80FFD7;*/
+/*}*/
 
 /* ------------- */

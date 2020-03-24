@@ -38,68 +38,109 @@ function initPodcastHeader(name, description, coverImageUrl) {
     $('#show-cover').attr('src', coverImageUrl);
 }
 
+function showPauseIcon(playPauseBtn) {
+    playPauseBtn.removeClass('fa-play');
+    playPauseBtn.addClass('fa-pause');
+}
+
+function showPlayIcon(playPauseBtn) {
+    playPauseBtn.removeClass('fa-pause');
+    playPauseBtn.addClass('fa-play');
+}
+
+function initAudioPlayer() {
+    /*
+     * audio player
+     *  - play clicked track
+     *  - add rest of tracks to queue
+     */
+    let trackTitle = $('#current-name');
+    let seekBarFill = $('.player-seek-bar .player-seek-bar-fill');
+    let playPauseBtn = $('#player-play-pause');
+    let prevButton = $('#player-prev');
+    let nextButton = $('#player-next');
+    // Play hardcoded episodes as test
+    let episodeUrls = [
+        'http://traffic.libsyn.com/minutephysics/Why_You_Should_Care_About_Nukes.mp4?dest-id=95145',
+        'http://traffic.libsyn.com/minutephysics/.mp4?dest-id=95145',
+        'http://traffic.libsyn.com/minutephysics/Transporters_and_Quantum_Teleportation.mp4?dest-id=95145',
+        'http://traffic.libsyn.com/minutephysics/The_Limb_of_the_Sun.mp4?dest-id=95145',
+        'http://traffic.libsyn.com/minutephysics/_1.mp4?dest-id=95145',
+        'http://traffic.libsyn.com/minutephysics/Concrete_Does_Not_Dry_Out.mp4?dest-id=95145'
+    ];
+
+
+    let audio = $('#player-audio')[0];
+    // let source = $('#audio-source')[0];
+    let currentEpisode = 0;
+    audio.src = episodeUrls[currentEpisode];
+
+    function playEpisode() {
+        audio.play();
+        trackTitle.text('TEST');
+    }
+
+    function onClickPlayOrPause() {
+        if (audio.paused) {
+            playEpisode();
+            showPauseIcon(playPauseBtn);
+        } else {
+            audio.pause();
+            showPlayIcon(playPauseBtn);
+        }
+    }
+
+    function onClickPrev() {
+        if(currentEpisode !== 0) {
+            currentEpisode--;
+            audio.src = episodeUrls[currentEpisode];
+            playEpisode();
+        }
+    }
+
+    function onClickNext() {
+        currentEpisode++;
+        audio.src = episodeUrls[currentEpisode];
+        playEpisode();
+    }
+
+    // Register click handlers
+    playPauseBtn.click(onClickPlayOrPause);
+    prevButton.click(onClickPrev);
+    nextButton.click(onClickNext);
+
+    function updateSeekerPosition() {
+        let position = audio.currentTime / audio.duration;
+        seekBarFill.css('width', position * 100 + '%');
+    }
+
+    // called when time is updating during playback
+    audio.ontimeupdate = function () {
+        updateSeekerPosition();
+    }
+}
+
 function onClickEpisode(jsonResponse) {
     return function () {
 
-        /*
-         * TODO: audio player
-         *  - play clicked track
-         *  - add rest of tracks to queue
-         */
+        initAudioPlayer();
 
         // `$(this)` holds `tr.episode-rows`
-        let episodeName = $(this).data('name');
-        $(this).addClass('active');
-        let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
-        console.log(episode);
-
-        initPlayer(jsonResponse['title'], episodeName, episode['enclosure_url']);
-        let episodeDesc = episode['description'];
-        let episodeDescElement = $('#research-desc-data');
-        if (episodeDesc.length === 0) {
-            episodeDescElement.html('No data.');
-        } else {
-            episodeDescElement.html(episodeDesc);
-        }
-
-        let activeRowElement = $('.episode-rows.active');
-
-        function prevAudio() {
-            // play the track that comes before '<tr> .active'
-            let activePrevElement = activeRowElement.prev();
-            if (activePrevElement.hasClass('episode-rows')) {
-                console.log(activePrevElement);
-            }
-        }
-
-        function nextAudio() {
-            // play the track that comes after '<tr> .active'
-            let activeNextElement = activeRowElement.next();
-            activeRowElement.removeClass('active');
-            if (activeNextElement.hasClass('episode-rows')) {
-                activeRowElement = activeNextElement;
-                activeRowElement.addClass('active');
-                console.log(activeRowElement);
-
-                let audio = $('#player-audio')[0];
-                // Pause if already playing
-                if (audio.paused === false) {
-                    console.log('audio playing, will pause');
-                    audio.pause();
-                    let source = $('#audio-source')[0];
-                    source.src = activeRowElement.data('url');
-                    console.log('changed src to: ' + source.src);
-                    audio.play();
-                }
-            }
-        }
-
-        let prevButton = $('#player-prev');
-        let nextButton = $('#player-next');
-
-        // Register click handlers
-        prevButton.click(prevAudio);
-        nextButton.click(nextAudio);
+        // let episodeName = $(this).data('name');
+        // $(this).addClass('active');
+        // let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
+        // console.log(episode);
+        //
+        // // initPlayer(jsonResponse['title'], episodeName, episode['enclosure_url']);
+        // let episodeDesc = episode['description'];
+        // let episodeDescElement = $('#research-desc-data');
+        // if (episodeDesc.length === 0) {
+        //     episodeDescElement.html('No data.');
+        // } else {
+        //     episodeDescElement.html(episodeDesc);
+        // }
+        //
+        // let activeRowElement = $('.episode-rows.active');
 
     };
 }
