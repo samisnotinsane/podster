@@ -237,11 +237,10 @@ h2 {
 
 .recently-added-container .show-grid-item {
     display: flex;
-    /*padding: 0 0% 0 0%;*/
     margin: 0 1% 0 1%;
     height: 150px;
     width: 150px;
-    /*border: 1px solid red;*/
+    cursor: pointer;
 }
 
 .show-meta {
@@ -397,6 +396,10 @@ h2 {
     width: 90%;
     height: 300px;
     overflow:scroll;
+}
+
+.episode-rows {
+    cursor: pointer;
 }
 
 /* ------------- */

@@ -1,189 +1,167 @@
-$(document).ready(function () {
+function onClickExplore() {
+    return function () {
+        let trEpisode = $('#episode-table tr.episode-rows');
+        let divShowMeta = $('.show-meta');
+        let divEpisodeTableWrapper = $('.episode-table-wrapper');
+        let divRecentlyAddedContainer = $('.recently-added-container');
 
-    // CSS debugging
-    // $('.top-level-pane').css('border', '6px solid red');
-    // $('.left-pane').css('border', '1px solid red');
-    // $('.right-pane').css('border', '1px solid red');
-    // $('.middle-pane').css('border', '1px solid red');
-    // $('.bottom-pane').css('border', '1px solid red');
-    // $('.show-meta').css('border', '1px solid red');
-    // $('.show-meta-text').css('border', '1px solid red');
-    // $('.show-meta-image').css('border', '1px solid red');
-
-    // Event handler: click 'Explore'
-    $('#explore-button').click(function () {
         // Clear rows from episode table
-        $('#episode-table tr.episode-rows').remove();
+        trEpisode.remove();
 
         // Hide show metadata and episode table
-        $('.show-meta').css('display', 'none');
-        $('.episode-table-wrapper').css('display', 'none');
+        divShowMeta.css('display', 'none');
+        divEpisodeTableWrapper.css('display', 'none');
 
         // Show recently added covers
-        $('.recently-added-container').css('display', 'flex');
-    });
+        divRecentlyAddedContainer.css('display', 'flex');
+    };
+}
 
-    // Event handler: click 'Favorites'
-    $('#favorites-button').click(function () {
+function onClickFavorites() {
+    return function () {
         alert('Not yet implemented!');
-    });
-
-
-    // Recently Added
-    $.getJSON('/api/podcasts', function (jsonResponse) {
-        initRecentlyAdded($('.show-section'), jsonResponse['podcasts']);
-
-        // Event handler: click recently added cover
-        $('.show-grid-item').click(function () {
-            console.log($(this).data());
-
-            initShowMetaStyle();
-            // Display research pane
-            $('.research-pane').css('display', 'flex');
-
-            // AJAX request to get show episodes
-            const showName = $(this).data('name');
-            $.getJSON('/api/podcast/' + showName, function (jsonResponse) {
-                // Load show description and cover
-                initShowMeta(showName, jsonResponse);
-
-                // Populate episodes in table
-                initPodcastEpisodes($('#episode-table'), jsonResponse['episodes']);
-
-                // Event handler: click on episode row
-                $("#episode-table").delegate("tr.episode-rows", "click", function () {
-                    let episodeName = $(this).data('name');
-                    $(this).addClass('active');
-                    let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
-                    console.log(episode);
-
-                    initPlayer(showName, episodeName, episode['enclosure_url']);
-                    let episodeDesc = episode['description'];
-                    let episodeDescElement = $('#research-desc-data');
-                    if (episodeDesc.length === 0) {
-                        episodeDescElement.html('No data.');
-                    } else {
-                        episodeDescElement.html(episodeDesc);
-                    }
-
-                    let activeRowElement = $('.episode-rows.active');
-
-                    function prevAudio() {
-                        // play the track that comes before '<tr> .active'
-                        let activePrevElement = activeRowElement.prev();
-                        if (activePrevElement.hasClass('episode-rows')) {
-                            console.log(activePrevElement);
-                        }
-                    }
-
-                    function nextAudio() {
-                        // play the track that comes after '<tr> .active'
-                        let activeNextElement = activeRowElement.next();
-                        activeRowElement.removeClass('active');
-                        if (activeNextElement.hasClass('episode-rows')) {
-                            activeRowElement = activeNextElement;
-                            activeRowElement.addClass('active');
-                            console.log(activeRowElement);
-
-                            let audio = $('#player-audio')[0];
-                            // Pause if already playing
-                            if (audio.paused === false) {
-                                console.log('audio playing, will pause');
-                                audio.pause();
-                                let source = $('#audio-source')[0];
-                                source.src = activeRowElement.data('url');
-                                console.log('changed src to: ' + source.src);
-                                audio.play();
-                            }
-                        }
-                    }
-
-                    let prevButton = $('#player-prev');
-                    let nextButton = $('#player-next');
-
-                    // Register click handlers
-                    prevButton.click(prevAudio);
-                    nextButton.click(nextAudio);
-
-                });
-
-            });
-        });
-    });
-
-    // Up Next
-    $('.up-next-container').append(
-        '<br><p>You don\'t have any episodes in your queue.</p>'
-    );
-
-
-    // Podcast episodes
-    if (top.location.pathname === '/show-detail') {
-        $.getJSON("/api/podcast/" + $('.show-meta h3').text(), function (jsonResponse) {
-            initPodcastDescr($('.show-meta'), jsonResponse['description']);
-            initPodcastEpisodes($('#episode-table'), jsonResponse['episodes']);
-
-            // Play most recent episode
-            initPlayer(jsonResponse.title, jsonResponse['episodes']);
-        });
-    }
-
-});
-
-function initRecentlyAdded(container, items) {
-    $.each(items, function (index, item) {
-        let coverId = 'cover-' + index;
-        container.append(
-            "<div class='show-grid-item' data-name='" + item['title'] + "'>" +
-            "<img id='" + coverId + "' " +
-            "src='" + item['image_url'] + "' " +
-            "alt='" + item['title'] + "' height='150' width='150'/>" +
-            "</div>"
-        );
-    });
-    $('.show-grid-item').css('cursor', 'pointer');
+    };
 }
 
+function htmlRecentlyAddedCover(index, podcast) {
+    let coverId = 'cover-' + index;
+    return "<div class='show-grid-item' data-name='" + podcast['title'] + "'>" +
+        "<img id='" + coverId + "' " +
+        "src='" + podcast['image_url'] + "' " +
+        "alt='" + podcast['title'] + "' height='150' width='150'/>" +
+        "</div>";
+}
 
-function initPodcastDescr(container, description) {
+function initPodcastHeader(name, description, coverImageUrl) {
+    $('#show-title').text(name);
     $('#show-description').text(description);
-    container.css({
-        'display': 'flex',
-        'flex-direction': 'column',
-        'width': '80%'
-    });
+    $('#show-cover').attr('src', coverImageUrl);
+}
+
+function onClickEpisode(jsonResponse) {
+    return function () {
+
+        /*
+         * TODO: audio player
+         *  - play clicked track
+         *  - add rest of tracks to queue
+         */
+
+        // `$(this)` holds `tr.episode-rows`
+        let episodeName = $(this).data('name');
+        $(this).addClass('active');
+        let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
+        console.log(episode);
+
+        initPlayer(jsonResponse['title'], episodeName, episode['enclosure_url']);
+        let episodeDesc = episode['description'];
+        let episodeDescElement = $('#research-desc-data');
+        if (episodeDesc.length === 0) {
+            episodeDescElement.html('No data.');
+        } else {
+            episodeDescElement.html(episodeDesc);
+        }
+
+        let activeRowElement = $('.episode-rows.active');
+
+        function prevAudio() {
+            // play the track that comes before '<tr> .active'
+            let activePrevElement = activeRowElement.prev();
+            if (activePrevElement.hasClass('episode-rows')) {
+                console.log(activePrevElement);
+            }
+        }
+
+        function nextAudio() {
+            // play the track that comes after '<tr> .active'
+            let activeNextElement = activeRowElement.next();
+            activeRowElement.removeClass('active');
+            if (activeNextElement.hasClass('episode-rows')) {
+                activeRowElement = activeNextElement;
+                activeRowElement.addClass('active');
+                console.log(activeRowElement);
+
+                let audio = $('#player-audio')[0];
+                // Pause if already playing
+                if (audio.paused === false) {
+                    console.log('audio playing, will pause');
+                    audio.pause();
+                    let source = $('#audio-source')[0];
+                    source.src = activeRowElement.data('url');
+                    console.log('changed src to: ' + source.src);
+                    audio.play();
+                }
+            }
+        }
+
+        let prevButton = $('#player-prev');
+        let nextButton = $('#player-next');
+
+        // Register click handlers
+        prevButton.click(prevAudio);
+        nextButton.click(nextAudio);
+
+    };
+}
+
+function cbGetEpisodes() {
+    return function (jsonResponse) {
+        console.log(jsonResponse);
+
+        // Sets podcast name, description, cover image in `.show-meta` container
+        initPodcastHeader(jsonResponse['title'], jsonResponse['description'], jsonResponse['image_url']);
+
+        // Populate episodes in table
+        let tableEpisodes = $('#episode-table');
+        initTableRows(tableEpisodes, jsonResponse['episodes']);
+
+        // Event handler: click on episode row
+        tableEpisodes.delegate("tr.episode-rows", "click", onClickEpisode(jsonResponse));
+    };
+}
+
+function onClickRecentlyAddedPodcast() {
+    return function () {
+        cssInitPodcastDetail();
+
+        // GET podcast episodes for this cover
+        // Note: `$(this)` holds `divPodcastCoverContainer`
+        let podcastName = $(this).data('name');
+        let requestUrl = '/api/podcast/' + podcastName;
+        $.getJSON(requestUrl, cbGetEpisodes());
+    };
+}
+
+function cbGetRecentlyAdded() {
+    // `jsonResponse` is data returned from the API endpoint: `/api/podcasts`
+    return function (jsonResponse) {
+        let arrayPodcasts = jsonResponse['podcasts'];
+
+        let divShowSectionContainer = $('.show-section');
+        $.each(arrayPodcasts, function (index, podcast) {
+            divShowSectionContainer.append(htmlRecentlyAddedCover(index, podcast));
+        });
+
+        let divPodcastCoverContainer = $('.show-grid-item');
+        // Event handler: click recently added cover
+        divPodcastCoverContainer.click(onClickRecentlyAddedPodcast());
+    };
+}
+
+function htmlTableRow(episode) {
+    return '<tr class="episode-rows" data-name="' + episode['title'] + '" ' +
+        'data-url="' + episode['enclosure_url'] + '">' +
+        '<td>' + episode['title'] + '</td>' +
+        '<td>' + episode['published'] + '</td>' +
+        '<td>' + episode['enclosure_length'] + '</td>' +
+        '</tr>';
 }
 
 
-function showDuration(audio) {
-    $(audio).bind('timeupdate', function () {
-        let secs = parseInt(audio.currentTime % 60);
-        let mins = parseInt((audio.currentTime / 60)) % 60;
-        if (secs < 10) {
-            secs = '0' + secs;
-        }
-        $('#player-duration').html(mins + ':' + secs);
-        let progressWidth = 0;
-        if (audio.currentTime > 0) {
-            progressWidth = ((100 / audio.duration) * (audio.currentTime));
-        }
-        $('.seeker-bar').css('width', progressWidth + '%');
-    });
-}
-
-
-function initPodcastEpisodes(container, episodes) {
+function initTableRows(table, episodes) {
     $.each(episodes, function (index, episode) {
-        container.append(
-            '<tr class="episode-rows" data-name="' + episode['title'] + '" ' +
-            'data-url="' + episode['enclosure_url'] + '">' +
-            '<td>' + episode['title'] + '</td>' +
-            '<td>' + episode['published'] + '</td>' +
-            '<td>' + episode['enclosure_length'] + '</td>' +
-            '</tr>'
-        );
+        table.append(htmlTableRow(episode));
     });
-    $('.episode-rows').css('cursor', 'pointer');
 }
 
 
@@ -194,6 +172,7 @@ function initCover() {
     let showCover = $('#show-cover').attr('src');
     playercover.attr('src', showCover);
 }
+
 
 function initPlayer(showTitle, episodeTitle, url) {
     initCover();
@@ -242,7 +221,7 @@ function initPlayer(showTitle, episodeTitle, url) {
 }
 
 
-function initShowMetaStyle() {
+function cssInitPodcastDetail() {
     // Hide recently added covers
     $('.recently-added-container').css('display', 'none');
 
@@ -261,12 +240,9 @@ function initShowMetaStyle() {
     let episodeTableWrapper = $('.episode-table-wrapper');
     episodeTableWrapper.css('display', 'flex');
     episodeTableWrapper.css('margin-left', '5%');
-}
 
-function initShowMeta(showName, jsonResponse) {
-    $('#show-title').text(showName);
-    $('#show-description').text(jsonResponse['description']);
-    $('#show-cover').attr('src', jsonResponse['image_url']);
+    // Display research pane
+    $('.research-pane').css('display', 'flex');
 }
 
 function getEpisodeByName(targetName, episodeList) {
@@ -279,4 +255,15 @@ function getEpisodeByName(targetName, episodeList) {
     return null;
 }
 
+// Entry point: callback when document loads and is 'ready'
+$(document).ready(function () {
+    let btnExplore = $('#explore-button');
+    let btnFavorites = $('#favorites-button');
 
+    // Event handlers: click 'Explore' and 'Favorite'
+    btnExplore.click(onClickExplore());
+    btnFavorites.click(onClickFavorites()); // onClick not yet impl.
+
+    // Send 'Recently Added' GET request in background (AJAX)
+    $.getJSON('/api/podcasts', cbGetRecentlyAdded());
+});
