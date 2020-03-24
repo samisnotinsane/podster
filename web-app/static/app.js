@@ -43,7 +43,8 @@ function showDuration(audio) {
 function initPodcastEpisodes(container, episodes) {
     $.each(episodes, function (index, episode) {
         container.append(
-            '<tr class="episode-rows" data-name="' + episode['title'] + '">' +
+            '<tr class="episode-rows" data-name="' + episode['title'] + '" ' +
+            'data-url="' + episode['enclosure_url'] + '">' +
             '<td>' + episode['title'] + '</td>' +
             '<td>' + episode['published'] + '</td>' +
             '<td>' + episode['enclosure_length'] + '</td>' +
@@ -62,17 +63,15 @@ function initCover() {
     playercover.attr('src', showCover);
 }
 
-function initPlayer(title, episode) {
+function initPlayer(showTitle, episodeTitle, url) {
     initCover();
-    $('#current-name').text(episode['title']);
-    $('#current-podcast').text(title);
+    $('#current-name').text(episodeTitle);
+    $('#current-podcast').text(showTitle);
 
-    let audioSrc = episode['enclosure_url'];
+    let audioSrc = url;
 
     let playButton = $('#player-play');
     let pauseButton = $('#player-pause');
-    let prevButton = $('#player-prev');
-    let nextButton = $('#player-next');
 
     let audio;
     let source;
@@ -105,19 +104,9 @@ function initPlayer(title, episode) {
         playButton.show();
     }
 
-    function prevAudio() {
-        alert('Not yet implemented!');
-    }
-
-    function nextAudio() {
-        alert('Not yet implemented!');
-    }
-
     // Register event handlers
     playButton.click(playAudio);
     pauseButton.click(pauseAudio);
-    prevButton.click(prevAudio);
-    nextButton.click(nextAudio);
 }
 
 
@@ -213,9 +202,11 @@ $(document).ready(function () {
                 // Event handler: click on episode row
                 $("#episode-table").delegate("tr.episode-rows", "click", function () {
                     let episodeName = $(this).data('name');
+                    $(this).addClass('active');
                     let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
                     console.log(episode);
-                    initPlayer(showName, episode);
+
+                    initPlayer(showName, episodeName, episode['enclosure_url']);
                     let episodeDesc = episode['description'];
                     let episodeDescElement = $('#research-desc-data');
                     if (episodeDesc.length === 0) {
@@ -223,7 +214,48 @@ $(document).ready(function () {
                     } else {
                         episodeDescElement.html(episodeDesc);
                     }
+
+                    let activeRowElement = $('.episode-rows.active');
+
+                    function prevAudio() {
+                        // play the track that comes before '<tr> .active'
+                        let activePrevElement = activeRowElement.prev();
+                        if (activePrevElement.hasClass('episode-rows')) {
+                            console.log(activePrevElement);
+                        }
+                    }
+
+                    function nextAudio() {
+                        // play the track that comes after '<tr> .active'
+                        let activeNextElement = activeRowElement.next();
+                        activeRowElement.removeClass('active');
+                        if (activeNextElement.hasClass('episode-rows')) {
+                            activeRowElement = activeNextElement;
+                            activeRowElement.addClass('active');
+                            console.log(activeRowElement);
+
+                            let audio = $('#player-audio')[0];
+                            // Pause if already playing
+                            if (audio.paused === false) {
+                                console.log('audio playing, will pause');
+                                audio.pause();
+                                let source = $('#audio-source')[0];
+                                source.src = activeRowElement.data('url');
+                                console.log('changed src to: ' + source.src);
+                                audio.play();
+                            }
+                        }
+                    }
+
+                    let prevButton = $('#player-prev');
+                    let nextButton = $('#player-next');
+
+                    // Register click handlers
+                    prevButton.click(prevAudio);
+                    nextButton.click(nextAudio);
+
                 });
+
             });
         });
     });
