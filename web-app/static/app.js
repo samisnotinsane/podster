@@ -48,17 +48,22 @@ function showPlayIcon(playPauseBtn) {
     playPauseBtn.addClass('fa-play');
 }
 
-function initAudioPlayer() {
+function initAudioPlayer(podcastName, episodeName) {
     /*
      * audio player
-     *  - play clicked track
      *  - add rest of tracks to queue
      */
-    let trackTitle = $('#current-name');
+    let episodeTitle = $('#current-name');
+    let podcastTitle = $('#current-podcast');
     let seekBarFill = $('.player-seek-bar .player-seek-bar-fill');
     let playPauseBtn = $('#player-play-pause');
     let prevButton = $('#player-prev');
     let nextButton = $('#player-next');
+
+    cssInitCover();
+    episodeTitle.text(episodeName);
+    podcastTitle.text(podcastName);
+
     // Play hardcoded episodes as test
     let episodeUrls = [
         'http://traffic.libsyn.com/minutephysics/Why_You_Should_Care_About_Nukes.mp4?dest-id=95145',
@@ -71,13 +76,12 @@ function initAudioPlayer() {
 
 
     let audio = $('#player-audio')[0];
-    // let source = $('#audio-source')[0];
     let currentEpisode = 0;
     audio.src = episodeUrls[currentEpisode];
 
     function playEpisode() {
         audio.play();
-        trackTitle.text('TEST');
+        episodeTitle.text(episodeName);
     }
 
     function onClickPlayOrPause() {
@@ -123,11 +127,17 @@ function initAudioPlayer() {
 function onClickEpisode(jsonResponse) {
     return function () {
 
-        initAudioPlayer();
+        let episodeName = $(this).data('name');
+        let podcastName = jsonResponse['title'];
+
+        initAudioPlayer(podcastName, episodeName);
 
         // `$(this)` holds `tr.episode-rows`
-        // let episodeName = $(this).data('name');
-        // $(this).addClass('active');
+        $(this).addClass('active');
+
+        // TODO: Extract URLs of all episodes from clicked episode onwards (reverse chronological order)
+
+
         // let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
         // console.log(episode);
         //
@@ -147,8 +157,6 @@ function onClickEpisode(jsonResponse) {
 
 function cbGetEpisodes() {
     return function (jsonResponse) {
-        console.log(jsonResponse);
-
         // Sets podcast name, description, cover image in `.show-meta` container
         initPodcastHeader(jsonResponse['title'], jsonResponse['description'], jsonResponse['image_url']);
 
@@ -206,59 +214,12 @@ function initTableRows(table, episodes) {
 }
 
 
-function initCover() {
+function cssInitCover() {
     let playerCoverContainer = $('.show-cover');
     playerCoverContainer.css('display', 'flex');
     let playercover = $('.show-cover img:first-child');
     let showCover = $('#show-cover').attr('src');
     playercover.attr('src', showCover);
-}
-
-
-function initPlayer(showTitle, episodeTitle, url) {
-    initCover();
-    $('#current-name').text(episodeTitle);
-    $('#current-podcast').text(showTitle);
-
-    let audioSrc = url;
-
-    let playButton = $('#player-play');
-    let pauseButton = $('#player-pause');
-
-    let audio;
-    let source;
-    audio = $('#player-audio')[0];
-    source = $('#audio-source')[0];
-
-    function playAudio() {
-        if (source.src.length === 0) {
-            source.src = audioSrc;
-        }
-
-        // Resume if already started playing
-        if (audio.paused === true) {
-            audio.play().then(function () {
-                // hide play button and show pause once playing
-                playButton.hide();
-                pauseButton.show();
-                showDuration(audio);
-            }).catch(function () {
-                console.log('The play() Promise rejected! Use the Play button instead.');
-            });
-        }
-
-    }
-
-    function pauseAudio() {
-        audio.pause();
-        // hide pause button and show play once paused
-        pauseButton.hide();
-        playButton.show();
-    }
-
-    // Register event handlers
-    playButton.click(playAudio);
-    pauseButton.click(pauseAudio);
 }
 
 
