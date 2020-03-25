@@ -48,7 +48,7 @@ function showPlayIcon(playPauseBtn) {
     playPauseBtn.addClass('fa-play');
 }
 
-function initAudioPlayer(podcastName, episodeName) {
+function initAudioPlayer(podcastName, episodeName, arrayPlaylist) {
     /*
      * audio player
      *  - add rest of tracks to queue
@@ -64,20 +64,18 @@ function initAudioPlayer(podcastName, episodeName) {
     episodeTitle.text(episodeName);
     podcastTitle.text(podcastName);
 
-    // Play hardcoded episodes as test
-    let episodeUrls = [
-        'http://traffic.libsyn.com/minutephysics/Why_You_Should_Care_About_Nukes.mp4?dest-id=95145',
-        'http://traffic.libsyn.com/minutephysics/.mp4?dest-id=95145',
-        'http://traffic.libsyn.com/minutephysics/Transporters_and_Quantum_Teleportation.mp4?dest-id=95145',
-        'http://traffic.libsyn.com/minutephysics/The_Limb_of_the_Sun.mp4?dest-id=95145',
-        'http://traffic.libsyn.com/minutephysics/_1.mp4?dest-id=95145',
-        'http://traffic.libsyn.com/minutephysics/Concrete_Does_Not_Dry_Out.mp4?dest-id=95145'
-    ];
+    // Extract URLs episodes and them to playlist
+    let arrayPlaylistOfUrls = [];
+    $.each(arrayPlaylist, function (index, episode) {
+        let episodeUrl = episode['enclosure_url'];
+        arrayPlaylistOfUrls.push(episodeUrl);
+    });
 
+    console.log(arrayPlaylistOfUrls);
 
     let audio = $('#player-audio')[0];
     let currentEpisode = 0;
-    audio.src = episodeUrls[currentEpisode];
+    audio.src = arrayPlaylistOfUrls[currentEpisode];
 
     function playEpisode() {
         audio.play();
@@ -95,16 +93,22 @@ function initAudioPlayer(podcastName, episodeName) {
     }
 
     function onClickPrev() {
-        if(currentEpisode !== 0) {
+        if (currentEpisode !== 0) {
             currentEpisode--;
-            audio.src = episodeUrls[currentEpisode];
+            audio.src = arrayPlaylistOfUrls[currentEpisode];
             playEpisode();
+        } else {
+            console.log('No more episodes, cannot move to prev');
         }
     }
 
     function onClickNext() {
+        if (arrayPlaylistOfUrls.length === 1) {
+            console.log('No more episodes, cannot move to next');
+            return;
+        }
         currentEpisode++;
-        audio.src = episodeUrls[currentEpisode];
+        audio.src = arrayPlaylistOfUrls[currentEpisode];
         playEpisode();
     }
 
@@ -124,19 +128,36 @@ function initAudioPlayer(podcastName, episodeName) {
     }
 }
 
+function episodePlaylist(arrayEpisodes, strTimestampOfActive) {
+    let arrayResults = [];
+    $.each(arrayEpisodes, function (index, episode) {
+        let strDatePubOfIndex = episode['published'];
+        let strTimestampOfIndex = Date.parse(strDatePubOfIndex);
+        if (strTimestampOfIndex <= strTimestampOfActive) {
+            arrayResults.push(episode);
+        }
+    });
+    return arrayResults;
+}
+
 function onClickEpisode(jsonResponse) {
     return function () {
-
         let episodeName = $(this).data('name');
         let podcastName = jsonResponse['title'];
 
-        initAudioPlayer(podcastName, episodeName);
 
         // `$(this)` holds `tr.episode-rows`
         $(this).addClass('active');
 
-        // TODO: Extract URLs of all episodes from clicked episode onwards (reverse chronological order)
+        // Extract URLs of all episodes from clicked episode onwards (reverse chronological order)
+        let arrayEpisodes = jsonResponse['episodes'];
 
+        // Date published of clicked episode
+        let strDatePubOfActive = $('.episode-rows.active td:nth-child(2)').text();
+        let strTimestampOfActive = Date.parse(strDatePubOfActive);
+        let arrayPlaylist = episodePlaylist(arrayEpisodes, strTimestampOfActive);
+
+        initAudioPlayer(podcastName, episodeName, arrayPlaylist);
 
         // let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
         // console.log(episode);
@@ -247,15 +268,6 @@ function cssInitPodcastDetail() {
     $('.research-pane').css('display', 'flex');
 }
 
-function getEpisodeByName(targetName, episodeList) {
-    for (let i = 0; i < episodeList.length; i++) {
-        let name = episodeList[i]['title'];
-        if (name === targetName) {
-            return episodeList[i];
-        }
-    }
-    return null;
-}
 
 // Entry point: callback when document loads and is 'ready'
 $(document).ready(function () {
