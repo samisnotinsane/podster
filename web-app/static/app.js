@@ -48,7 +48,7 @@ function showPlayIcon(playPauseBtn) {
     playPauseBtn.addClass('fa-play');
 }
 
-function initAudioPlayer(podcastName, episodeName, arrayPlaylist) {
+function initAudioPlayer(podcastName, episodeName, startPos, arrayPlaylist) {
     /*
      * audio player
      *  - add rest of tracks to queue
@@ -74,7 +74,7 @@ function initAudioPlayer(podcastName, episodeName, arrayPlaylist) {
     console.log(arrayPlaylistOfUrls);
 
     let audio = $('#player-audio')[0];
-    let currentEpisode = 0;
+    let currentEpisode = startPos;
     audio.src = arrayPlaylistOfUrls[currentEpisode];
 
     function playEpisode() {
@@ -140,6 +140,20 @@ function episodePlaylist(arrayEpisodes, strTimestampOfActive) {
     return arrayResults;
 }
 
+
+function findStartPos(targetTimestamp, arrayEpisodes) {
+    let pos = -1;
+    $.each(arrayEpisodes, function (index, episode) {
+        let strDatePubOfIndex = episode['published'];
+        let strTimestampOfIndex = Date.parse(strDatePubOfIndex);
+        if (targetTimestamp === strTimestampOfIndex) {
+            console.log(arrayEpisodes[index]);
+            pos = index;
+        }
+    });
+    return pos;
+}
+
 function onClickEpisode(jsonResponse) {
     return function () {
         let episodeName = $(this).data('name');
@@ -152,12 +166,16 @@ function onClickEpisode(jsonResponse) {
         // Extract URLs of all episodes from clicked episode onwards (reverse chronological order)
         let arrayEpisodes = jsonResponse['episodes'];
 
-        // Date published of clicked episode
+        // Use date published of clicked episode to return **it**, and all older episodes
         let strDatePubOfActive = $('.episode-rows.active td:nth-child(2)').text();
         let strTimestampOfActive = Date.parse(strDatePubOfActive);
-        let arrayPlaylist = episodePlaylist(arrayEpisodes, strTimestampOfActive);
 
-        initAudioPlayer(podcastName, episodeName, arrayPlaylist);
+        let startPos = findStartPos(strTimestampOfActive, arrayEpisodes);
+        console.log('startPos: ' + startPos);
+
+        // let arrayPlaylist = episodePlaylist(arrayEpisodes, strTimestampOfActive);
+
+        initAudioPlayer(podcastName, episodeName, startPos, arrayEpisodes);
 
         // let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
         // console.log(episode);
