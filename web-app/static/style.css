@@ -380,6 +380,7 @@ h2 {
 
 .show-name {
     color: #418068;
+    overflow:scroll; /* Vertical scrolling when text is too long. */
 }
 
 .show-artist {

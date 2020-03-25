@@ -71,8 +71,6 @@ function initAudioPlayer(podcastName, episodeName, startPos, arrayPlaylist) {
         arrayPlaylistOfUrls.push(episodeUrl);
     });
 
-    console.log(arrayPlaylistOfUrls);
-
     let audio = $('#player-audio')[0];
     let currentEpisode = startPos;
     audio.src = arrayPlaylistOfUrls[currentEpisode];
@@ -80,6 +78,15 @@ function initAudioPlayer(podcastName, episodeName, startPos, arrayPlaylist) {
     function playEpisode() {
         audio.play();
         episodeTitle.text(arrayPlaylist[currentEpisode]['title']);
+
+        // Set episode description of currently playing episode
+        let episodeDesc = arrayPlaylist[currentEpisode]['description'];
+        let episodeDescElement = $('#research-desc-data');
+        if (episodeDesc.length === 0) {
+            episodeDescElement.html('No data.');
+        } else {
+            episodeDescElement.html(episodeDesc);
+        }
     }
 
     function onClickPlayOrPause() {
@@ -171,24 +178,9 @@ function onClickEpisode(jsonResponse) {
         let strTimestampOfActive = Date.parse(strDatePubOfActive);
 
         let startPos = findStartPos(strTimestampOfActive, arrayEpisodes);
-        console.log('startPos: ' + startPos);
-
-        // let arrayPlaylist = episodePlaylist(arrayEpisodes, strTimestampOfActive);
 
         initAudioPlayer(podcastName, episodeName, startPos, arrayEpisodes);
 
-        // let episode = getEpisodeByName(episodeName, jsonResponse['episodes']);
-        // console.log(episode);
-        //
-        // // initPlayer(jsonResponse['title'], episodeName, episode['enclosure_url']);
-        // let episodeDesc = episode['description'];
-        // let episodeDescElement = $('#research-desc-data');
-        // if (episodeDesc.length === 0) {
-        //     episodeDescElement.html('No data.');
-        // } else {
-        //     episodeDescElement.html(episodeDesc);
-        // }
-        //
         // let activeRowElement = $('.episode-rows.active');
 
     };
