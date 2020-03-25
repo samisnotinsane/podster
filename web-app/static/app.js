@@ -79,7 +79,7 @@ function initAudioPlayer(podcastName, episodeName, arrayPlaylist) {
 
     function playEpisode() {
         audio.play();
-        episodeTitle.text(episodeName);
+        episodeTitle.text(arrayPlaylist[currentEpisode]['title']);
     }
 
     function onClickPlayOrPause() {
