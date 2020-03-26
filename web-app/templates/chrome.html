@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chrome Layout Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='normalize.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='skeleton.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='chrome-style.css') }}">
+
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+
+<body>
+
+<div class="banner-container">
+    <span>Development</span>
+</div>
+
+<div class="main-container">
+    <div class="sub-container-1">
+        <div class="logo-container">
+            <span>Logo</span>
+        </div>
+        <div class="menu-container">
+            <span>Menu</span>
+        </div>
+    </div>
+    <div class="sub-container-2">
+        <div class="search-container">
+            <span>Search</span>
+        </div>
+        <div class="hero-container">
+            <span>Hero</span>
+        </div>
+        <div class="recent-container">
+            <span>Recent</span>
+        </div>
+    </div>
+    <div class="sub-container-3">
+        3
+    </div>
+</div>
+
+<div class="player-container">
+    <span>Player</span>
+</div>
+
+<!-- Scripts -->
+<script type=text/javascript src="{{ url_for('static', filename='jquery-3.4.1.js') }}"></script>
+<script src="{{ url_for('static', filename='chrome-app.js') }}"></script>
+</body>
+
+</html>

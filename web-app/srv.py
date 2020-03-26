@@ -11,6 +11,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/chrome')
+def chrome():
+    return render_template('chrome.html')
+
+
 @app.route('/api-docs')
 def api_docs():
     return render_template('api-docs.html')

@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    height: 80vh;
+
+    border: 4px solid red;
+}
+
+.banner-container {
+    height: 8vh;
+    background-color: #fefd19;
+    border: 4px solid red;
+}
+
+/* Border around all subcontainers. */
+*[class^='sub-container-'] {
+    border: 1px solid red;
+}
+
+.sub-container-1, .sub-container-3 {
+    width: 20%;
+}
+
+.sub-container-2 {
+    width: 60%;
+}
+
+.player-container {
+    height: 20vh;
+    border: 4px solid red;
+}
+
+.search-container {
+    height: 15vh;
+    border: 1px solid red;
+}
+
+.hero-container {
+    height: 25vh;
+    border: 1px solid red;
+}
+
+.recent-container {
+    height: 38vh;
+    border: 1px solid red;
+}
+
+.logo-container {
+    height: 25vh;
+    border: 1px solid red;
+}
+
+.menu-container {
+    height: 50vh;
+    border: 1px solid red;
+}
