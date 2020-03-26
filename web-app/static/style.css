@@ -75,7 +75,6 @@ h2 {
     background: #eee;
     flex-direction: column;
     width: 20%;
-    /*border: 1px solid red;*/
 }
 
 .left-pane .logo-pane {
@@ -115,7 +114,6 @@ h2 {
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    /*border: 1px solid red;*/
 }
 
 .top-pane .search {
@@ -146,7 +144,7 @@ h2 {
     margin-bottom: 25px;
     padding-left: 10px;
     color: #444444;
-    /*border: 1px solid red;*/
+    cursor: pointer;
 }
 
 /* Middle Pane */
@@ -159,26 +157,53 @@ h2 {
 
 /* Bottom Pane */
 .bottom-pane {
-    width: 90%;
-}
-
-.up-next-title {
-    font-weight: bold;
-    font-size: x-large;
+    width: 100%;
 }
 
 /* Right Pane */
 .right-pane {
     display: flex;
     width: 20%;
-    border: 1px solid red;
 }
+
+/* Research Pane */
+
+.research-pane {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#research-pane-title {
+    background-color: #eeeeee;
+    color: #444444;
+    font-weight: bold;
+    font-size: x-large;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.research-body-desc {
+    padding: 12px;
+    border-bottom: 30px solid #eeeeee;
+    height: 250px;
+    overflow:scroll;
+}
+
+.research-body-analysis {
+    padding: 12px;
+    height: 250px;
+    overflow:scroll;
+}
+
+/* ------------- */
 
 /* Recently Added */
 .recently-added-container {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 95%;
     /*border: 1px solid red;*/
 }
 
@@ -204,6 +229,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     height: 200px;
+    width: 100%;
     overflow: auto;
     white-space: nowrap;
     /*border: 1px solid red;*/
@@ -211,11 +237,16 @@ h2 {
 
 .recently-added-container .show-grid-item {
     display: flex;
-    /*padding: 0 0% 0 0%;*/
     margin: 0 1% 0 1%;
     height: 150px;
     width: 150px;
-    /*border: 1px solid red;*/
+    cursor: pointer;
+}
+
+.show-meta {
+    display: none;
+    justify-content: space-between;
+    width: 100%;
 }
 
 /* ------------- */
@@ -223,23 +254,24 @@ h2 {
 /* Player Pane */
 .player-top-level-pane {
     display: flex;
+    height: 120px;
     justify-content: space-between;
+    background-color: #CFFFED;
 }
 
 .show-metadata-pane {
     display: flex;
-    margin-left: 2%;
-    /*border: 1px solid red;*/
+    position: relative;
+    top: 5px;
+    left: 5px;
+
+    width: 400px;
+    height: 90%;
 }
 
 .show-cover {
-    padding-top: 6px;
-    /*border: 1px solid red;*/
-}
-
-.show-cover img {
-    height: 52px;
-    width: 52px;
+    display: none;
+    padding: 15px;
     /*border: 1px solid red;*/
 }
 
@@ -247,39 +279,48 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-left: 12px;
-    padding-top: 6px;
-    /*border: 1px solid red;*/
+
+    width: 100%;
+    padding: 15px;
+}
+
+.show-meta-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.show-cover img {
+    height: 52px;
+    width: 52px;
 }
 
 .player-controls-pane {
-    width: 40%;
-    margin-top: 12px;
-    margin-bottom: 6px;
-    /*border: 1px solid red;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    position: relative;
+    top: 5px;
+    left: -40px;
+
+    width: 600px;
+    height: 90%;
 }
 
 .player-buttons {
     display: flex;
     justify-content: center;
-    /*border: 1px solid red;*/
+
+    position: relative;
+    top: 5px;
+
+    height: 45px;
+    padding-top: 15px;
 }
 
 .player-button {
-    margin-left: 8px;
-}
 
-.player-seeker {
-    width: 100%;
-    margin-top: 12px;
-    background-color: #eeeeee;
-    /*border: 1px solid red;*/
-}
-
-.player-seeker .seeker-bar {
-    width: 1%;
-    height: 5px;
-    background-color: #4CAF50;
 }
 
 .volume-control-pane {
@@ -312,33 +353,109 @@ h2 {
     display: flex;
     /*width: 100%;*/
     height: 5px;
-    background-color: #4CAF50;
+    background-color: #418068;
     /*border: 1px solid red;*/
 }
 
 .vol-slider-bar {
     width: 1%;
     height: 5px;
-    background-color: #4CAF50;
+    background-color: whitesmoke;
 }
 
 /* ------------- */
 
 .episode-table-wrapper {
-    display: flex;
-    margin-left: 12%;
-    margin-right: 12%;
-    width: 100%;
-    height:300px;
+    display: none;
+    width: 90%;
+    height: 300px;
     overflow:scroll;
+}
+
+.episode-rows {
+    cursor: pointer;
 }
 
 /* ------------- */
 
-.up-next-table {
-    display: flex;
-    overflow: scroll;
-    height: 200px;
+.show-name {
+    color: #418068;
+    overflow:scroll; /* Vertical scrolling when text is too long. */
 }
+
+.show-artist {
+    color: #418068;
+}
+
+#player-play-pause {
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+#player-pause {
+    display: none;
+    height: 30px;
+    width: 30px;
+
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.fa-play {
+    color: #418068;
+    cursor: pointer;
+}
+
+.fa-pause {
+    color: #418068;
+    cursor: pointer;
+}
+
+.fa-backward {
+    color: #418068;
+    cursor: pointer;
+}
+
+.fa-forward {
+    color: #418068;
+    cursor: pointer;
+}
+
+.fa-volume-mute {
+    color: #418068;
+    cursor: pointer;
+}
+
+.player-seek-bar {
+    display: flex;
+    cursor: pointer;
+
+    border-radius: 50px;
+    background-color: #eeeeee;
+
+    height: 5px;
+    width: 100%;
+}
+
+.player-seek-bar-fill {
+    height: 5px;
+    background-color: #418068;
+}
+
+.player-seek-bar-handle {
+    width: 8px;
+    height: 8px;
+    background-color: #418068;
+    border-radius: 50%;
+    margin-left: -5px;
+    transform: scale(2);
+}
+
+/* TODO: change colour of active row */
+/*tr .active td:first-child {*/
+/*    color: #80FFD7;*/
+/*}*/
 
 /* ------------- */

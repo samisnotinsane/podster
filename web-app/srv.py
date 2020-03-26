@@ -1,7 +1,9 @@
+#!/usr/bin/env python
+
 from flask import Flask, render_template, jsonify, request
 import data
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 
 @app.route('/')
@@ -19,7 +21,8 @@ def get_podcasts():
     podcasts = data.get_podcast_dict()
     return jsonify({'podcasts': podcasts})
 
-@app.route('/api/show/<podcast_name>')
+
+@app.route('/api/podcast/<podcast_name>')
 def get_show(podcast_name=None):
     show = data.get_podcast(podcast_name)
     return jsonify(show)
@@ -49,3 +52,6 @@ def show_episodes():
 def show_detail():
     title = request.args.get('title', None)
     return render_template('show-detail.html', title=title)
+
+
+app.run(host="0.0.0.0", debug=True)
