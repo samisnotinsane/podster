@@ -38,96 +38,104 @@ function initPodcastHeader(name, description, coverImageUrl) {
     $('#show-cover').attr('src', coverImageUrl);
 }
 
-function showPauseIcon(playPauseBtn) {
+function showPauseIcon() {
+    let playPauseBtn = $('#player-play-pause');
     playPauseBtn.removeClass('fa-play');
     playPauseBtn.addClass('fa-pause');
 }
 
-function showPlayIcon(playPauseBtn) {
+function showPlayIcon() {
+    let playPauseBtn = $('#player-play-pause');
     playPauseBtn.removeClass('fa-pause');
     playPauseBtn.addClass('fa-play');
 }
 
-function initAudioPlayer(podcastName, episodeName, startPos, arrayPlaylist) {
+function initPlayerTitle(podcastTitle, episodeTitle) {
+    let elemEpisodeTitle = $('#current-name');
+    let elemPodcastTitle = $('#current-podcast');
+    elemEpisodeTitle.text(episodeTitle);
+    elemPodcastTitle.text(podcastTitle);
+}
+
+function playEpisode(episodeDesc) {
+    audio.play();
+    // Set episode description of currently playing episode
+    let episodeDescElement = $('#research-desc-data');
+    if (episodeDesc.length === 0) {
+        episodeDescElement.html('No data.');
+    } else {
+        episodeDescElement.html(episodeDesc);
+    }
+}
+
+function onClickPlayOrPause() {
+    if (audio.paused) {
+        audio.play();
+        showPauseIcon();
+    } else {
+        audio.pause();
+        showPlayIcon();
+    }
+}
+
+function onClickPrev(currentEpisode, arrayPlaylist) {
+    // if (currentEpisode !== 0) {
+    //     currentEpisode--;
+    //     audio.src = arrayPlaylistOfUrls[currentEpisode];
+    //     let strEpisodeDesc = arrayPlaylist[currentEpisode]['description'];
+    //     playEpisode(strEpisodeDesc);
+    // } else {
+    //     console.log('No more episodes, cannot move to prev');
+    // }
+}
+
+function onClickNext() {
+    // if (arrayPlaylistOfUrls.length === 1) {
+    //     console.log('No more episodes, cannot move to next');
+    //     return;
+    // }
+    // currentEpisode++;
+    // audio.src = arrayPlaylistOfUrls[currentEpisode];
+    // playEpisode(strEpisodeDesc);
+}
+
+function updateSeekerPosition() {
+    let seekBarFill = $('.player-seek-bar .player-seek-bar-fill');
+    let position = audio.currentTime / audio.duration;
+    seekBarFill.css('width', position * 100 + '%');
+}
+
+function initPlayback(podcastName, startPos, arrayAllEpisodes) {
     /*
      * audio player
      *  - start playing first episode in playlist
      *  - add rest of tracks to queue
      */
-    let episodeTitle = $('#current-name');
-    let podcastTitle = $('#current-podcast');
-    let seekBarFill = $('.player-seek-bar .player-seek-bar-fill');
     let playPauseBtn = $('#player-play-pause');
     let prevButton = $('#player-prev');
     let nextButton = $('#player-next');
 
-    cssInitCover();
-    episodeTitle.text(episodeName);
-    podcastTitle.text(podcastName);
+    // Extract URLs of episodes and add them to playlist
+    // let arrayPlaylist = [];
+    // $.each(arrayAllEpisodes, function (index, episode) {
+    //     let episodeUrl = episode['enclosure_url'];
+    //     arrayPlaylist.push(episodeUrl);
+    // });
 
-    // Extract URLs episodes and them to playlist
-    let arrayPlaylistOfUrls = [];
-    $.each(arrayPlaylist, function (index, episode) {
-        let episodeUrl = episode['enclosure_url'];
-        arrayPlaylistOfUrls.push(episodeUrl);
-    });
+    // Load 'startPos'-th episode
+    let activeEpisodeNo = startPos;
+    console.log('arrayAllEpisodes[activeEpisodeNo][\'enclosure_url\']');
+    console.log(arrayAllEpisodes[activeEpisodeNo]['enclosure_url']);
+    audio.src = arrayAllEpisodes[activeEpisodeNo]['enclosure_url'];
 
-    let currentEpisode = startPos;
-    audio.src = arrayPlaylistOfUrls[currentEpisode];
-
-    function playEpisode() {
-        audio.play();
-        episodeTitle.text(arrayPlaylist[currentEpisode]['title']);
-
-        // Set episode description of currently playing episode
-        let episodeDesc = arrayPlaylist[currentEpisode]['description'];
-        let episodeDescElement = $('#research-desc-data');
-        if (episodeDesc.length === 0) {
-            episodeDescElement.html('No data.');
-        } else {
-            episodeDescElement.html(episodeDesc);
-        }
-    }
-
-    function onClickPlayOrPause() {
-        if (audio.paused) {
-            playEpisode();
-            showPauseIcon(playPauseBtn);
-        } else {
-            audio.pause();
-            showPlayIcon(playPauseBtn);
-        }
-    }
-
-    function onClickPrev() {
-        if (currentEpisode !== 0) {
-            currentEpisode--;
-            audio.src = arrayPlaylistOfUrls[currentEpisode];
-            playEpisode();
-        } else {
-            console.log('No more episodes, cannot move to prev');
-        }
-    }
-
-    function onClickNext() {
-        if (arrayPlaylistOfUrls.length === 1) {
-            console.log('No more episodes, cannot move to next');
-            return;
-        }
-        currentEpisode++;
-        audio.src = arrayPlaylistOfUrls[currentEpisode];
-        playEpisode();
-    }
+    // Metadata
+    let strEpisodeTitle = arrayAllEpisodes[activeEpisodeNo]['title'];
+    let strEpisodeDesc = arrayAllEpisodes[activeEpisodeNo]['description'];
 
     // Register click handlers
     playPauseBtn.click(onClickPlayOrPause);
-    prevButton.click(onClickPrev);
-    nextButton.click(onClickNext);
-
-    function updateSeekerPosition() {
-        let position = audio.currentTime / audio.duration;
-        seekBarFill.css('width', position * 100 + '%');
-    }
+    prevButton.click(onClickPrev(activeEpisodeNo, arrayAllEpisodes));
+    nextButton.click(onClickNext(activeEpisodeNo, arrayAllEpisodes));
 
     // called when time is updating during playback
     audio.ontimeupdate = function () {
@@ -136,7 +144,7 @@ function initAudioPlayer(podcastName, episodeName, startPos, arrayPlaylist) {
 
     if (audio.paused) {
         console.log('audio already paused, playing');
-        playEpisode();
+        playEpisode(strEpisodeDesc);
         showPauseIcon(playPauseBtn);
     } else {
         audio.play().then(function () {
@@ -160,31 +168,51 @@ function findStartPos(targetTimestamp, arrayEpisodes) {
     return pos;
 }
 
+function episodesFrom(startPos, allEpisodes) {
+    let filteredEpisodes = [];
+    $.each(allEpisodes, function(index, episode) {
+        if (index >= startPos) {
+            filteredEpisodes.push(episode);
+        }
+    });
+    return filteredEpisodes;
+}
+
 function onClickEpisode(jsonResponse) {
     return function () {
         console.log('onClickEpisode');
         let episodeName = $(this).data('name');
         let podcastName = jsonResponse['title'];
 
+        // Remove all other instances of '.active' if present
+        $('.episode-rows').removeClass('active');
+        $(this).addClass('active'); // `$(this)` holds `tr.episode-rows`
 
-        // `$(this)` holds `tr.episode-rows`
-        $(this).addClass('active');
-
-        // Extract URLs of all episodes from clicked episode onwards (reverse chronological order)
-        let arrayEpisodes = jsonResponse['episodes'];
+        let arrayAllEpisodes = jsonResponse['episodes'];
 
         // Use date published of clicked episode to return **it**, and all older episodes
         let strDatePubOfActive = $('.episode-rows.active td:nth-child(2)').text();
         let strTimestampOfActive = Date.parse(strDatePubOfActive);
 
-        let startPos = findStartPos(strTimestampOfActive, arrayEpisodes);
+        let startPos = findStartPos(strTimestampOfActive, arrayAllEpisodes);
+        // let arrayFilterEpisodes = episodesFrom(startPos, arrayAllEpisodes);
 
         console.log('selected episode: ');
         console.log(episodeName);
-        initAudioPlayer(podcastName, episodeName, startPos, arrayEpisodes);
+        console.log('selected published: ');
+        console.log(strDatePubOfActive);
+        console.log('arrayEpisodes');
+        console.log(arrayAllEpisodes);
+        console.log('startPos');
+        console.log(startPos);
+        // console.log('arrayFilterEpisodes');
+        // console.log(arrayFilterEpisodes);
+        console.log('--END--');
 
-        // let activeRowElement = $('.episode-rows.active');
+        cssInitPlayerCover(); // show a little podcast cover in player
+        initPlayerTitle(podcastName, episodeName); // show podcast name and episode title in player
 
+        initPlayback(podcastName, startPos, arrayAllEpisodes); // start playback from start position
     };
 }
 
@@ -247,7 +275,7 @@ function initTableRows(table, episodes) {
 }
 
 
-function cssInitCover() {
+function cssInitPlayerCover() {
     let playerCoverContainer = $('.show-cover');
     playerCoverContainer.css('display', 'flex');
     let playercover = $('.show-cover img:first-child');
