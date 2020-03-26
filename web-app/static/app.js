@@ -51,6 +51,7 @@ function showPlayIcon(playPauseBtn) {
 function initAudioPlayer(podcastName, episodeName, startPos, arrayPlaylist) {
     /*
      * audio player
+     *  - start playing first episode in playlist
      *  - add rest of tracks to queue
      */
     let episodeTitle = $('#current-name');
@@ -71,7 +72,6 @@ function initAudioPlayer(podcastName, episodeName, startPos, arrayPlaylist) {
         arrayPlaylistOfUrls.push(episodeUrl);
     });
 
-    let audio = $('#player-audio')[0];
     let currentEpisode = startPos;
     audio.src = arrayPlaylistOfUrls[currentEpisode];
 
@@ -132,19 +132,18 @@ function initAudioPlayer(podcastName, episodeName, startPos, arrayPlaylist) {
     // called when time is updating during playback
     audio.ontimeupdate = function () {
         updateSeekerPosition();
-    }
-}
+    };
 
-function episodePlaylist(arrayEpisodes, strTimestampOfActive) {
-    let arrayResults = [];
-    $.each(arrayEpisodes, function (index, episode) {
-        let strDatePubOfIndex = episode['published'];
-        let strTimestampOfIndex = Date.parse(strDatePubOfIndex);
-        if (strTimestampOfIndex <= strTimestampOfActive) {
-            arrayResults.push(episode);
-        }
-    });
-    return arrayResults;
+    if (audio.paused) {
+        console.log('audio already paused, playing');
+        playEpisode();
+        showPauseIcon(playPauseBtn);
+    } else {
+        audio.play().then(function () {
+            console.log('playing');
+            showPauseIcon(playPauseBtn);
+        });
+    }
 }
 
 
@@ -163,6 +162,7 @@ function findStartPos(targetTimestamp, arrayEpisodes) {
 
 function onClickEpisode(jsonResponse) {
     return function () {
+        console.log('onClickEpisode');
         let episodeName = $(this).data('name');
         let podcastName = jsonResponse['title'];
 
@@ -179,6 +179,8 @@ function onClickEpisode(jsonResponse) {
 
         let startPos = findStartPos(strTimestampOfActive, arrayEpisodes);
 
+        console.log('selected episode: ');
+        console.log(episodeName);
         initAudioPlayer(podcastName, episodeName, startPos, arrayEpisodes);
 
         // let activeRowElement = $('.episode-rows.active');
@@ -278,11 +280,14 @@ function cssInitPodcastDetail() {
     $('.research-pane').css('display', 'flex');
 }
 
+// Global var.
+let audio;
 
 // Entry point: callback when document loads and is 'ready'
 $(document).ready(function () {
     let btnExplore = $('#explore-button');
     let btnFavorites = $('#favorites-button');
+    audio = $('#player-audio')[0];
 
     // Event handlers: click 'Explore' and 'Favorite'
     btnExplore.click(onClickExplore());
