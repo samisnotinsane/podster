@@ -1,45 +1,51 @@
 {% extends 'layout.html' %}
-{% block title %}SHow Details{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 {% block head %}
     {{ super() }}
 {% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="nine columns">
-                <h4 id="show-title">Show title here</h4>
-                <p id="show-description">Show description here</p>
-            </div>
-            <div class="three columns">
-                show cover here
-            </div>
-        </div>
-    </div>
+    <div class="top-level-pane">
+        <div class="left-pane">
 
-    <div class="container">
-        <div class="row">
-            <div class="eight columns">
-                Episode 1
+            <div class="logo-pane">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='images/podster-logo.png') }}"
+                         alt="Podster logo" height="82" width="82">
+                </a>
             </div>
-            <div class="four columns">
-                Infobar
+
+            <div class="menu-pane">
+                <button>🧭 Explore</button>
+                <button>💎 Favorites</button>
             </div>
-        </div>
-        <div class="row">
-            <div class="eight columns">
-                Episode 2
-            </div>
-            <div class="four columns">
-                Infobar
-            </div>
-        </div>
-        <div class="row">
-            <div class="eight columns">
-                Episode 3
-            </div>
-            <div class="four columns">
-                Infobar
+
+            <div class="settings-pane">
+                <a class="button" href="/api-docs">API Docs</a>
             </div>
         </div>
+
+        <div class="center-pane">
+            <div id="show-details">
+                <div class="top-pane">
+                    {% include "top-pane.html" %}
+                </div>
+
+                <div class="middle-pane">
+
+                </div>
+
+                <div class="bottom-pane">
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="right-pane">
+            right-pane
+        </div>
+
+        {% include "player.html" %}
+
     </div>
 {% endblock %}
