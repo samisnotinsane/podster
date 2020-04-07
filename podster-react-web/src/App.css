@@ -4,6 +4,18 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #212121;
+  color: white;
+}
+
+@media screen and (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+    color: black;
+  }
+}
+
 .header-container h1 {
   color: red;
 }

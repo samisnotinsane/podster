@@ -6,6 +6,8 @@ WORKDIR /app
 COPY package*.json /app/
 ## install only the packages defined in the package-lock.json (faster than the normal npm install)
 RUN npm install
+# install react router
+RUN npm i react-router-dom --save
 # Copy the contents of the project to the image
 COPY . /app/
 # expose port 3000 from in the container to the outside world
