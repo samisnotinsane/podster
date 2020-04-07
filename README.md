@@ -7,41 +7,50 @@ dependency hell.
 Please make an account with them if you do not have one already and install it on your system. 
 
 #### Startup 
-Clone this repo and navigate inside it, then launch podster with one command from your terminal:
+Clone this repo and navigate inside it.
 ````
 git clone https://github.com/samisnotinsane/podster.git
 cd podster
+````
+Launch podster with one command from your terminal:
+````
 docker-compose up -d --build
 ````
-Note : If you wish to debug and view logs generating, please remove `-d` from the command above. 
+This will deploy this Docker app in detached mode.
+
+Note: If you wish to debug and view logs generating, please remove `-d` from the command above. 
 When launched in this way, press `CTRL+C` from terminal to quit.
 
 This will spin up 3 containers: 
+- `podster_react_web`: a React web app which is the main UI for Podster
+- `podster_data_fetcher`: a python command line app for adding podcast links, downloading related data and storing them in database
 - `podster_datastore_1`: a mongo db local datastore (used to store downloaded podcast data)
-- `podster_cli_1`: a python command line app for adding podcast links, downloading related data and storing them in database
-- `podster_web_1`: python flask web server with jQuery frontend components
+- `podster_flask_web` (deprecated): python flask web server with jQuery frontend components
 
 Check that the app is running using `docker-compose ps` which should produce the following output:
 
 ````
        Name                      Command               State             Ports
 ----------------------------------------------------------------------------------------
-podster_cli_1         bash -c  python podster.py ...   Exit 0
-podster_datastore_1   docker-entrypoint.sh mongod      Up       0.0.0.0:27017->27017/tcp
-podster_web_1         bash -c python srv.py            Up       0.0.0.0:5000->5000/tcp
+podster_data_fetcher   bash -c  python podster.py ...   Exit 0
+podster_datastore      docker-entrypoint.sh mongod      Up       0.0.0.0:27017->27017/tcp
+podster_flask_web      bash -c python srv.py            Up       0.0.0.0:5000->5000/tcp
+podster_react_web      docker-entrypoint.sh npm start   Up       0.0.0.0:3000->3000/tcp
 ````
 
-Currently, only Apple Safari is supported. Please open [http://0.0.0.0:5000](http://0.0.0.0:5000) to view.
+Please open [http://0.0.0.0:3000](http://0.0.0.0:3000) to open the React web app.
+
+Flask web app (deprecated) is only supported on Safari. Open [http://0.0.0.0:5000](http://0.0.0.0:5000) to view.
 
 #### Shutdown
-To take down podster, run `docker-compose down`. 
+To take down podster, run `docker-compose down` or `CTRL+C` if you're not running in detached mode (`-d`).
 
-### Features
+### Features (Flask App)
 - View recently added podcasts
 - View podcast episodes with its description (when playing)
 - Play an episode and view time elapsed
 
-### Known Limitations
+### Known Limitations (Flask App)
 - Volume slider code not yet implemented
 - Favorites section not yet implemented
 - Search feature not yet implemented
