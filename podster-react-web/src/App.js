@@ -16,14 +16,14 @@ import './App.css';
 function App() {
   return (
     <HashRouter>
-      <div className="nav-container">
+      <div>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/signup">Signup</NavLink>
         <NavLink to="/signin">Signin</NavLink>
         <NavLink to="/forgot-password">Forgot Password</NavLink>
         <NavLink to="/new-password">New Password</NavLink>
       </div>
-      <div className="content-container">
+      <div>
         <Route exact path="/" component={Welcome} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />

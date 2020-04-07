@@ -1,25 +1,25 @@
 import React from 'react';
 
-function MainSection() {
+function Welcome() {
     return (
-        <div className="welcome-container">
-            <div className="header-container">
-                <h1>Podster</h1>
+        <div className="page">
+            <div className="section header">
+                <span>Podster</span>
+            </div>
+            <div className="section content">
+                <p>Choose to make sense of the world around you. Choose Podster</p>
                 <p>[Logo Here]</p>
             </div>
-            <div className="main-section-container">
-                <p>Choose to make sense of the world around you. Choose Podster</p>
-                <div className="button-container">
-                    <button className="button-primary">Sign in with E-mail</button>
-                    <button className="button-primary">Sign in with Facebook</button>
-                    <button className="button-primary">Sign in with Google</button>
-                </div>
+            <div className="section sign-in">
+                <button className="button-primary">Sign in with E-mail</button>
+                <button className="button-primary">Sign in with Facebook</button>
+                <button className="button-primary">Sign in with Google</button>
             </div>
-            <div className="footer-container">
-                <p>Don't have an account? Sign up now</p>
+            <div className="section sign-up">
+                <span>Don't have an account? Sign up now</span>
             </div>
         </div>
     );
 }
 
-export default MainSection;
+export default Welcome;
