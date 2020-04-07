@@ -1,36 +1,44 @@
-  version: '3'
+version: "3"
 
-  services:
-    datastore:
-      image: mongo
-      ports:
-        - "27017:27017"
+services:
+  datastore:
+    image: mongo
+    ports:
+      - "27017:27017"
 
-    cli:
-      image: podster-cli:v0.1
-      build: ./cli
-      command: bash -c "
-          python podster.py source --purge &&
-          python podster.py source --add https://dataskeptic.libsyn.com/rss &&
-          python podster.py source --add http://minutephysics.libsyn.com/rss &&
-          python podster.py source --add https://lexfridman.com/category/ai/feed/ &&
-          python podster.py source --add https://anchor.fm/s/14574e50/podcast/rss &&
-          python podster.py source --add https://www.wired.co.uk/rss/podcast &&
-          python podster.py source --add https://www.cbc.ca/podcasting/includes/spark.xml &&
-          python podster.py source --add http://boomertown.libsyn.com/rss &&
-          python podster.py source --view &&
-          python podster.py store --purge &&
-          python podster.py store --create
-          "
-      volumes:
+  cli:
+    image: podster-cli:v0.1
+    build: ./cli
+    command: bash -c "
+      python podster.py source --purge &&
+      python podster.py source --add https://dataskeptic.libsyn.com/rss &&
+      python podster.py source --add http://minutephysics.libsyn.com/rss &&
+      python podster.py source --add https://lexfridman.com/category/ai/feed/ &&
+      python podster.py source --add https://anchor.fm/s/14574e50/podcast/rss &&
+      python podster.py source --add https://www.wired.co.uk/rss/podcast &&
+      python podster.py source --add https://www.cbc.ca/podcasting/includes/spark.xml &&
+      python podster.py source --add http://boomertown.libsyn.com/rss &&
+      python podster.py source --view &&
+      python podster.py store --purge &&
+      python podster.py store --create"
+    volumes:
       - ./cli:/app
-      links:
-        - datastore
-    web:
-      image: podster-api:v0.1
-      build: ./web-app
-      command: bash -c "python srv.py"
-      volumes:
+    links:
+      - datastore
+
+  web:
+    image: podster-api:v0.1
+    build: ./web-app
+    command: bash -c "python srv.py"
+    volumes:
       - ./web-app:/app
-      ports:
-        - "5000:5000"
+    ports:
+      - "5000:5000"
+
+  react-web:
+    container_name: podster_react_web
+    build: ./podster-react-web
+    ports:
+      - 3000:80
+    labels:
+      NAME: "podster_react_web"
