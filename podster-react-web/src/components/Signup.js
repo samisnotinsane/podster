@@ -3,8 +3,6 @@ import React from 'react';
 function Signup() {
     return (
         <div className="signup-container">
-            <span>Step: 1/2</span>
-            <br />
             <form>
                 <label htmlFor="fname">First name:</label>
                 <input type="text" id="fname" />
@@ -14,7 +12,20 @@ function Signup() {
                 <br />
                 <input type="checkbox" name="male" value="Male" />Male
                 <input type="checkbox" name="female" value="Female" />Female
-                <button className="button-primary">Next</button>
+                <br />
+                <label htmlFor="username">Username:</label>
+                <input type="text" id="username" />
+                <br />
+                <label html="email">Email:</label>
+                <input type="text" id="email" />
+                <br />
+                <label html="password">Password:</label>
+                <input type="password" id="password" />
+                <br />
+                <label htmlFor="repeatPassword">Repeat password:</label>
+                <input type="password" id="password" />
+                <br />
+                <button className="button-primary">Let's go!</button>
             </form>
         </div>
     );
