@@ -5,6 +5,7 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+    container_name: podster_datastore
 
   cli:
     image: podster-cli:v0.1
@@ -25,6 +26,7 @@ services:
       - ./cli:/app
     links:
       - datastore
+    container_name: podster_data_fetcher
 
   web:
     image: podster-api:v0.1
@@ -34,11 +36,18 @@ services:
       - ./web-app:/app
     ports:
       - "5000:5000"
+    container_name: podster_flask_web
 
   react-web:
-    container_name: podster_react_web
-    build: ./podster-react-web
+    image: podster_react_web
+    build:
+      context: ./podster-react-web
+      dockerfile: Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./podster-react-web:/app
     ports:
-      - 3000:80
-    labels:
-      NAME: "podster_react_web"
+      - "3000:3000"
+    restart: on-failure
+    stdin_open: true
+    container_name: podster_react_web

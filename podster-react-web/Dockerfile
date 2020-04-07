@@ -1,13 +1,14 @@
-FROM mhart/alpine-node:11 AS builder
-WORKDIR /app
-COPY . .
-RUN npm install react-scripts
-RUN yarn install
-RUN yarn run build
+FROM node:10-alpine AS alpine
+LABEL maintainer="Sameen Islam <@samisnotinsane>"
 
-FROM mhart/alpine-node
-RUN yarn global add serve
 WORKDIR /app
-COPY --from=builder /app/build .
-CMD ["serve", "-p", "80", "-s", "."]doc
-
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json /app/
+## install only the packages defined in the package-lock.json (faster than the normal npm install)
+RUN npm install
+# Copy the contents of the project to the image
+COPY . /app/
+# expose port 3000 from in the container to the outside world
+EXPOSE 3000
+# Run 'npm start' when the container starts.
+CMD ["npm", "start"]
