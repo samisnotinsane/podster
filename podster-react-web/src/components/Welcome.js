@@ -1,22 +1,28 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+import logo from '../podster_logo_A.svg';
 
 function Welcome() {
     return (
         <div className="page">
             <div className="section header">
-                <span>Podster</span>
+                <span className="brand-name">Podster</span>
+                <span className="brand-tagline">Choose to make sense of the world around you. Choose Podster</span>
             </div>
             <div className="section content">
-                <p>Choose to make sense of the world around you. Choose Podster</p>
-                <p>[Logo Here]</p>
+                <img src={logo} className="app-logo" alt="logo" />
             </div>
             <div className="section sign-in">
-                <button className="button-primary">Sign in with E-mail</button>
-                <button className="button-primary">Sign in with Facebook</button>
-                <button className="button-primary">Sign in with Google</button>
+                <NavLink to="/signin" className="button-primary">Sign in with E-mail</NavLink>
+                <NavLink to="/signin" className="button-primary">Sign in with Facebook</NavLink>
+                <NavLink to="/signin" className="button-primary">Sign in with Google</NavLink>
             </div>
             <div className="section sign-up">
-                <span>Don't have an account? Sign up now</span>
+                <span>Don't have an account?
+                    <NavLink to="/signup" className="accent-link">Sign up now</NavLink>
+                </span>
+                
             </div>
         </div>
     );
