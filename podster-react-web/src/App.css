@@ -76,6 +76,19 @@
   text-decoration: none;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 35vh;
+  width: 65%;
+}
+
+.form .form-row {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 /* Mobile Styles */
 @media only screen and (max-width: 500px) {
   body {
