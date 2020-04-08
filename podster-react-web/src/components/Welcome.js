@@ -22,7 +22,6 @@ function Welcome() {
                 <span>Don't have an account?
                     <NavLink to="/signup" className="accent-link">Sign up now</NavLink>
                 </span>
-                
             </div>
         </div>
     );
