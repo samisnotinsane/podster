@@ -18,8 +18,6 @@ function App() {
     <HashRouter>
       <div>
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/forgot-password">Forgot Password</NavLink>
-        <NavLink to="/new-password">New Password</NavLink>
       </div>
       <div>
         <Route exact path="/" component={Welcome} />

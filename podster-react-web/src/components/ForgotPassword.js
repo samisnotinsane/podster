@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 function ForgotPassword() {
     return (
@@ -15,7 +16,8 @@ function ForgotPassword() {
                 <input type="text" id="email" />
                 <button className="button-primary">Next</button>
             </form>
-            <p>Back to <span>Sign in</span></p>
+            <p>Back to <NavLink to="/signin" className="accent-link">Sign in</NavLink></p>
+            <NavLink to="/new-password">New password</NavLink>
         </div>
     );
 }

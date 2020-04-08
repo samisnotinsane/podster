@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Signin() {
     return (
@@ -14,6 +15,7 @@ function Signin() {
                 <input type="checkbox" name="isRemainSignedIn" value="true" /> Keep me logged in
                 <button className="button-primary">Let's go!</button>
             </form>
+            <NavLink to="/forgot-password" className="accent-link">Forgot your password?</NavLink>
         </div>
     );
 }
