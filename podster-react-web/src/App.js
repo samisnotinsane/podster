@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Route, 
-  NavLink,
   HashRouter
 } from 'react-router-dom';
 
@@ -16,9 +15,6 @@ import './App.css';
 function App() {
   return (
     <HashRouter>
-      <div>
-        <NavLink to="/">Home</NavLink>
-      </div>
       <div>
         <Route exact path="/" component={Welcome} />
         <Route path="/signup" component={Signup} />
