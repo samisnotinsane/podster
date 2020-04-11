@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
 import ButtonPrimary from './ButtonPrimary.js';
 import ButtonInline from './ButtonInline.js';
