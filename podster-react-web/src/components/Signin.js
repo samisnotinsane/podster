@@ -1,5 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+
+import ButtonPrimary from './ButtonPrimary.js';
+import ButtonInline from './ButtonInline.js';
 
 function Signin() {
     return (
@@ -17,15 +19,15 @@ function Signin() {
                     <br />
                     <div className="form-row">
                         Keep me logged in
+                        {' '}
                         <input type="checkbox" name="isRemainSignedIn" value="true" />
                     </div>
                     <div className="form-row">
-                        <button className="button-primary">Let's go!</button>
+                        <ButtonPrimary linkTo="/home">Let's go!</ButtonPrimary>
                     </div>
                 </form>
             </div>
-            
-            <NavLink to="/forgot-password" className="accent-link">Forgot your password?</NavLink>
+            <ButtonInline linkTo="/forgot-password">Forgot your password?</ButtonInline>
         </div>
     );
 }
