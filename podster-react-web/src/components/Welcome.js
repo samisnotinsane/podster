@@ -1,7 +1,8 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
 import logo from '../podster_logo_A.svg';
+import ButtonPrimary from './ButtonPrimary.js';
+import ButtonInline from './ButtonInline.js';
             
 const Logo = ({ size }) => {
     const logoSize = {
@@ -14,34 +15,12 @@ const Logo = ({ size }) => {
     );
 }
 
-const ButtonPrimary = ({ linkTo, children }) => {
-    const button_style = {
-        backgroundColor: '#24a0ed',
-        border: 'none',
-        borderRadius: '30px',
-        color: 'white',
-        padding: '15px 75px',
-        textAlign: 'center',
-        textDecoration: 'none',
-        display: 'inline-block',
-        fontSize: '16px',
-        cursor: 'pointer',
-    };
-
-    return (
-        <NavLink to={linkTo}>
-            <button style={button_style}>
-                {children}
-            </button>
-        </NavLink>
-    );
-}
-
 function Welcome() {
     return (
         <div className="page">
             <div>
                 <span>Podster</span>
+                <br />
                 <span>Choose to make sense of the world around you. Choose Podster</span>
             </div>
             <div>
@@ -59,8 +38,10 @@ function Welcome() {
                 </ButtonPrimary>
             </div>
             <div>
-                <span>Don't have an account?
-                    <NavLink to="/signup" className="accent-link">Sign up now</NavLink>
+                <span>
+                    Don't have an account? 
+                    {' '} 
+                    <ButtonInline linkTo="/signup">Sign up</ButtonInline>
                 </span>
             </div>
         </div>
