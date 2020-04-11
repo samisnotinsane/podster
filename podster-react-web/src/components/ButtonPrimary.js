@@ -2,6 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const ButtonPrimary = ({ linkTo, children }) => {
+    if (!linkTo) {
+        linkTo = "#"; // no op
+    }
+    
     const button_style = {
         backgroundColor: '#24a0ed',
         border: 'none',

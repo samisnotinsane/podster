@@ -1,6 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import ButtonPrimary from './ButtonPrimary.js';
+import ButtonInline from './ButtonInline.js';
+
 function ForgotPassword() {
     return (
         <div className="page">
@@ -18,12 +21,12 @@ function ForgotPassword() {
                 <form className="form">
                     <label htmlFor="email">Email:</label>
                     <input type="text" id="email" />
-                    <button className="button-primary">Next</button>
+                    <br />
+                    <ButtonPrimary linkTo="/new-password">Next</ButtonPrimary>
                 </form>
-                <p>Back to <NavLink to="/signin" className="accent-link">Sign in</NavLink></p>
+                <span>Back to <ButtonInline linkTo="/signin">Sign in</ButtonInline></span>
+                
             </div>
-            
-            <NavLink to="/new-password">New password</NavLink>
         </div>
     );
 }

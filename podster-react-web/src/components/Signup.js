@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ButtonPrimary from './ButtonPrimary.js';
+
 function Signup() {
     return (
         <div className="signup-container">
@@ -25,7 +27,7 @@ function Signup() {
                 <label htmlFor="repeatPassword">Repeat password:</label>
                 <input type="password" id="password" />
                 <br />
-                <button className="button-primary">Let's go!</button>
+                <ButtonPrimary linkTo="/signin">Let's go!</ButtonPrimary>
             </form>
         </div>
     );
