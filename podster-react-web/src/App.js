@@ -1,7 +1,7 @@
 import React from 'react';
 import {
+  BrowserRouter as Router,
   Route, 
-  HashRouter
 } from 'react-router-dom';
 
 import Welcome from './components/Welcome';
@@ -14,15 +14,15 @@ import './App.css';
 
 function App() {
   return (
-    <HashRouter>
+    <Router>
       <div>
-        <Route exact path="/" component={Welcome} />
+      <Route exact path="/" component={Welcome} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/new-password" component={NewPassword} />
       </div>
-    </HashRouter>
+    </Router>
   );
 }
 
