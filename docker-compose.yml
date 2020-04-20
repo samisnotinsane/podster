@@ -1,51 +1,14 @@
 version: "3"
 
 services:
-  datastore:
-    image: mongo
-    ports:
-      - "27017:27017"
-    container_name: podster_datastore
-
-  cli:
-    image: podster-cli:v0.1
-    build: ./cli
-    command: bash -c "
-      python podster.py source --purge &&
-      python podster.py source --add https://dataskeptic.libsyn.com/rss &&
-      python podster.py source --add http://minutephysics.libsyn.com/rss &&
-      python podster.py source --add https://lexfridman.com/category/ai/feed/ &&
-      python podster.py source --add https://anchor.fm/s/14574e50/podcast/rss &&
-      python podster.py source --add https://www.wired.co.uk/rss/podcast &&
-      python podster.py source --add https://www.cbc.ca/podcasting/includes/spark.xml &&
-      python podster.py source --add http://boomertown.libsyn.com/rss &&
-      python podster.py source --view &&
-      python podster.py store --purge &&
-      python podster.py store --create"
-    volumes:
-      - ./cli:/app
-    links:
-      - datastore
-    container_name: podster_data_fetcher
-
-  web:
-    image: podster-api:v0.1
-    build: ./web-app
-    command: bash -c "python srv.py"
-    volumes:
-      - ./web-app:/app
-    ports:
-      - "5000:5000"
-    container_name: podster_flask_web
-
   react-web:
     image: podster_react_web
     build:
       context: ./podster-react-web
       dockerfile: Dockerfile
     volumes:
-      - /app/node_modules
       - ./podster-react-web:/app
+      - /app/node_modules
     ports:
       - "3000:3000"
     restart: on-failure
