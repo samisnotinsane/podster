@@ -5,9 +5,9 @@ import {
 } from 'react-router-dom';
 
 import Welcome from './components/Welcome';
-import Signup from './components/Signup';
-import Signin from './components/Signin';
-import ForgotPassword from './components/ForgotPassword';
+import Signup from '../Signup';
+import Signin from '../Signin';
+import ForgotPassword from './ForgotPassword';
 import NewPassword from './components/NewPassword';
 
 import './App.css';
