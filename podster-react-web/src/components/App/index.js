@@ -11,15 +11,17 @@ import PasswordForgetPage from '../PasswordForget';
 
 import * as ROUTES  from '../../constants/routes';
 
-export default function App() {
+function App() {
     return (
         <Router>
             <div>
+                <Route exact path={ROUTES.LANDING} component={HomePage} />
                 <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
                 <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-                <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-                <Route path={ROUTES.HOME} component={HomePage} />    
+                <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />  
             </div>
         </Router>
     );
 }
+
+export default App;
