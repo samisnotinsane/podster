@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import SignUpLink from './SignUpLink';
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import EmailIcon from '@material-ui/icons/Email';
@@ -16,8 +18,7 @@ import PodsterLogo from '../../assets/Logo.svg';
 import * as ROUTES  from '../../constants/routes';
 
 const onClickEmail = (event) => {
-  console.log('Email sign-in auth not yet implemented');
-  alert('Sorry! This feature is not available yet :/');
+  console.log('Email sign-in auth flow');
 }
 
 const onClickGoogle = (event) => {
@@ -82,6 +83,8 @@ function HomePage() {
           alignItems="center"
         >
           <Button
+            to={ROUTES.SIGN_IN}
+            component={Link}
             className={classes.button}
             fullWidth
             variant="contained"
@@ -114,17 +117,12 @@ function HomePage() {
         </Grid>
       </Container>
       <Grid item>
-        <Link 
-          href={ROUTES.SIGN_UP} 
-          variant="body2" 
-          color="secondary"
-          underline="hover"
-        >
-          Don't have an account? Sign up now
-        </Link>
+        <SignUpLink />
       </Grid>
     </div>
   );
 }
 
 export default HomePage;
+
+export { SignUpLink };
