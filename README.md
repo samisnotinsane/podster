@@ -1,6 +1,8 @@
 # podster
 A podcast player with web and cli interface. 
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d6595365-618d-4ba9-8801-d0478232761b/deploy-status)](https://app.netlify.com/sites/infallible-blackwell-29054e/deploys)
+
 ### Getting Started
 Podster is fully containerised using [Docker](https://www.docker.com) to make it cross-platform and prevent 
 dependency hell. 
