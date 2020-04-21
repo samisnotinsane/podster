@@ -17,9 +17,16 @@ import Container from '@material-ui/core/Container';
 import * as ROUTES  from '../../constants/routes';
 
 const onSubmit = event => {
-  console.log('Sign in clicked');
-  alert('We are still building Podster. Please check back later :)');
+  alert('We are sorry but we cannot log you in at this time as Podster is under construction.');
   event.preventDefault();
+}
+
+const handleForgotPassword = () => {
+  alert('This feature is under construction');
+}
+
+const handleSignUp = () => {
+  alert('This feature is under construction');
 }
 
 const Copyright = () => {
@@ -112,20 +119,20 @@ function SignInPage() {
           <Grid container>
             <Grid item xs>
               <Link 
-                href={ROUTES.PASSWORD_FORGET} 
                 variant="body2"
                 color="secondary"
                 underline="hover"
+                onClick={() => {handleForgotPassword()}}
               >
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
               <Link 
-                href={ROUTES.SIGN_UP} 
                 variant="body2"
                 color="secondary"
                 underline="hover"
+                onClick={() => {handleSignUp()}}
               >
                 {"Don't have an account? Sign Up"}
               </Link>
