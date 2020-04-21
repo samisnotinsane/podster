@@ -9,11 +9,25 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import LanguageIcon from '@material-ui/icons/Language';
 
-import GoogleLogin from 'react-google-login';
+import PodsterLogo from '../../assets/Logo.svg';
 
-const responseGoogle = (response) => {
-  console.log(response);
+import * as ROUTES  from '../../constants/routes';
+
+const onClickEmail = (event) => {
+  console.log('Email sign-in auth not yet implemented');
+  alert('Sorry! This feature is not available yet :/');
+}
+
+const onClickGoogle = (event) => {
+  console.log('Google sign-in auth not yet implemented');
+  alert('Sorry! This feature is not available yet :/');
+}
+
+const onClickFacebook = (event) => {
+  console.log('Facebook sign-in auth not yet implemented');
+  alert('Sorry! This feature is not available yet :/');
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +36,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  headerGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  logo: {
+    margin: theme.spacing(5, 0)
   },
   buttonGroup: {
     display: 'flex',
@@ -41,16 +63,19 @@ function HomePage() {
     <div className={classes.paper}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Grid>
+        <Grid className={classes.headerGroup}>
           <Typography variant="h3" align="center">
             Podster
           </Typography>
+          <img 
+            className={classes.logo}
+            src={PodsterLogo}
+            alt="Podster Logo" 
+          />
           <Typography variant="body2" align="center">
             Choose to make sense of the world around you. Choose Podster.
           </Typography>
         </Grid>
-        
-        
         <Grid
           className={classes.buttonGroup}
           container 
@@ -61,33 +86,41 @@ function HomePage() {
             fullWidth
             variant="contained"
             color="primary"
+            onClick={() => {onClickEmail()}}
           >
             <EmailIcon />
             Sign in with Email
           </Button>
-          <GoogleLogin
-            className={classes.button}
-            clientId="39828108942-74ho5nstb0o4fekv6sar7mnf202m3stv.apps.googleusercontent.com"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            buttonText="Sign in with Google"
-            cookiePolicy={'single_host_origin'}
-          />
           <Button
             className={classes.button}
             fullWidth
             variant="contained"
             color="primary"
+            onClick={() => {onClickGoogle()}}
+          >
+            <LanguageIcon />
+            Sign in with Google
+          </Button>
+          <Button
+            className={classes.button}
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={() => {onClickFacebook()}}
           >
             <FacebookIcon />
             Sign in with Facebook
           </Button>
         </Grid>
       </Container>
-      
       <Grid item>
-        <Link href="#" variant="body2">
-          Already have an account? Sign in
+        <Link 
+          href={ROUTES.SIGN_UP} 
+          variant="body2" 
+          color="secondary"
+          underline="hover"
+        >
+          Don't have an account? Sign up now
         </Link>
       </Grid>
     </div>
