@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useCallback, useContext } from 'react';
+import { withRouter, Redirect } from 'react-router';
+
+import firebase from '../Firebase';
+import { AuthContext } from '../Firebase/auth';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -16,16 +20,7 @@ import Container from '@material-ui/core/Container';
 
 import * as ROUTES  from '../../constants/routes';
 
-const onSubmit = event => {
-  alert('We are sorry but we cannot log you in at this time as Podster is under construction.');
-  event.preventDefault();
-}
-
 const handleForgotPassword = () => {
-  alert('This feature is under construction');
-}
-
-const handleSignUp = () => {
   alert('This feature is under construction');
 }
 
@@ -63,8 +58,29 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function SignInPage() {
+const SignInPage = ({ history }) => {
   const classes = useStyles();
+  const handleSignIn = useCallback(async event => {
+      const {
+        email,
+        password
+      } = event.target.elements;
+
+      try {
+        await firebase
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+        history.push(ROUTES.HOME);
+      } catch (error) {
+        alert('Error! Sign in failed.');
+        console.log(error);
+      }
+
+      event.preventDefault();
+    }, [ history ]);
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) { return <Redirect to={ROUTES.LANDING} />; }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -78,7 +94,7 @@ function SignInPage() {
         </Typography>
         <form 
           className={classes.form} 
-          onSubmit={onSubmit}
+          onSubmit={handleSignIn}
           noValidate
         >
           <TextField 
@@ -129,10 +145,10 @@ function SignInPage() {
             </Grid>
             <Grid item>
               <Link 
+                href={ROUTES.SIGN_UP}
                 variant="body2"
                 color="secondary"
                 underline="hover"
-                onClick={() => {handleSignUp()}}
               >
                 {"Don't have an account? Sign Up"}
               </Link>
@@ -147,4 +163,4 @@ function SignInPage() {
   );
 }
 
-export default SignInPage;
+export default withRouter(SignInPage);

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Link from "@material-ui/core/Link";
 
-import * as ROUTES  from '../../constants/routes';
+// import * as ROUTES  from '../../constants/routes';
 
 const handleClick = () => {
     alert(
